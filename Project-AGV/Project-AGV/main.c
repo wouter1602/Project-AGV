@@ -10,11 +10,17 @@
 #include <util/delay.h>
 #include <USBCore.h>
 
+#include "pins.h"
+#include "motor.h"
 
 int main(void) {
 	sei();
 	
 	usbDeviceAttach();
+	
+	initPins();
+	initMotor();
+	
 	DDRC |= (1 << DDC7);
     /* Replace with your application code */
     while (1) {
