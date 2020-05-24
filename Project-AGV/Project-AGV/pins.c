@@ -9,7 +9,8 @@
 
 //Set data directory and pull-ups
 static void initIo(void) {
-	
+	DDRB |= (1 << M2DIR) | (1 << M1PWM) | (1 << M2PWM);
+	DDRE |= (1 << M1DIR);
 }
 
 //setup all the timers
