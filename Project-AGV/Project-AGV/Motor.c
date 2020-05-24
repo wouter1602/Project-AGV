@@ -19,17 +19,12 @@ ISR(TIMER0_COMPA_vect) {
 	if (motorR) {
 		PORTB |= (1 << M1PWM);
 	}
+}
+
+ISR(TIMER0_COMPB_vect) {
 	if (motorL) {
 		PORTB |= (1 << M2PWM);
 	}
-}
-
-ISR(TIMER4_OVF_vect) {
-	PORTB &= ~(1 << M2PWM);
-}
-
-ISR(TIMER4_COMPA_vect) {
-	PORTB |= (1 << M2PWM);
 }
 
 //Include everything needed to start the motor
@@ -38,8 +33,9 @@ void initMotor(void) {
 	//in Normal mode
 	
 	OCR0A = 0x7F;
+	OCR0B = 0x7F;
 	
-	TIMSK0 |= (1 << OCIE0A) | (1 << TOIE0); //Enalbe OVF and COMPA fect
+	TIMSK0 |= (1 << OCIE0A) | (1 << OCIE0B) | (1 << TOIE0); //Enalbe OVF, COMPA and COMPB fect
 }
 
 //set motor speed R
@@ -70,7 +66,7 @@ void setMotorR(int16_t speed) {
 void setMotorL(int16_t speed) {
 	TCCR0B &= ~(1 << CS00); //Disable signal
 	PORTB &= ~(1 << M2PWM); //Turn of signal
-	OCR0A = abs(speed);
+	OCR0B = abs(speed);
 	if (speed < 0) {
 		PORTB |= (1 << M2DIR);
 		TCCR0B |= (1 << CS00);
