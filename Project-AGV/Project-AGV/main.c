@@ -9,6 +9,7 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include <USBCore.h>
+#include <USBART.h>
 
 #include "pins.h"
 #include "motor.h"
@@ -19,6 +20,7 @@ int main(void) {
 	usbDeviceAttach();
 	initPins();
 	initMotor();
+	streamInit();
 	
 	DDRC |= (1 << DDC7);
     /* Replace with your application code */
@@ -46,6 +48,7 @@ int main(void) {
 		_delay_ms(500);
 		drive(0);
 		_delay_ms(500);
+		printf("Test\n");
 
 		/*
 		setMotorL(0x7F);
