@@ -9,8 +9,13 @@
 #ifndef MAGNETO_H_
 #define MAGNETO_H_
 
+#include <avr/io.h>
+#include <util/delay.h>
+
+#include "twi.h"
+
 #define MAGNETO_ADDR_R 0x3B
-#define MAGNETO_ADDR_w 0x3A
+#define MAGNETO_ADDR_W 0x3A
 
 /*LSM303D Registers*/
 #define TEMP_OUT_L		0x05	//r
@@ -408,6 +413,7 @@
 #define ACTD0		0
 
 void initMagneto(void);
-int16_t getMagenotData(void);
+uint16_t getMagnetoDataX(void);
+uint16_t getMagnetoDataY(void);
 
 #endif /* MAGNETO_H_ */
