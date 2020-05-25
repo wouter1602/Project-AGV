@@ -50,6 +50,17 @@ int main(void) {
 		_delay_ms(500);
 		printf("Test\n");
 
+		TurnL(0x7F);
+		_delay_ms(500);
+		TurnL(-0x7F;
+		_delay_ms(500);
+
+		TurnR(0x7F);
+		_delay_ms(500);
+		TurnR(-0x7F);
+		_delay_ms(500);
+		
+
 		/*
 		setMotorL(0x7F);
 		PORTC |= (1 << PORTC7);
