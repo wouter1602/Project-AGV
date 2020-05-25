@@ -50,14 +50,14 @@ int main(void) {
 		_delay_ms(500);
 		printf("Test\n");
 
-		TurnL(0x7F);
+		turnL(0x7F);
 		_delay_ms(500);
-		TurnL(-0x7F;
+		turnL(-0x7F);
 		_delay_ms(500);
 
-		TurnR(0x7F);
+		turnR(0x7F);
 		_delay_ms(500);
-		TurnR(-0x7F);
+		turnR(-0x7F);
 		_delay_ms(500);
 		
 
