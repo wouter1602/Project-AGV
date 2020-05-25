@@ -91,13 +91,15 @@ void drive(int16_t speed) {
 }
 
 //turn so many degrees right
-void turnR(uint16_t degrees) {
-	
+void turnR(uint16_t speed) {
+	setMotorL(speed);
+	setMotorR(speed/5);
 }
 
 //turn so many degrees left
-void turnL(uint16_t degrees) {
-	
+void turnL(uint16_t speed) {
+	setMotorR(speed);
+	setMotorL(speed/5);
 }
 
 //turn 90 degrees right
