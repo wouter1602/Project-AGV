@@ -13,6 +13,7 @@
 
 #include "pins.h"
 #include "motor.h"
+#include "magneto.h"
 
 int main(void) {
 	sei();
@@ -25,43 +26,7 @@ int main(void) {
 	DDRC |= (1 << DDC7);
     /* Replace with your application code */
     while (1) {
-		/*
-		setMotorR(0x7F);
-		PORTC |= (1 << PORTC7);
-		_delay_ms(500);
-		setMotorR(0);
-		_delay_ms(500);
-		setMotorR(-0x7F);
-		PORTC &= ~(1 << PORTC7);
-		_delay_ms(500);
-		setMotorR(0);
-		_delay_ms(500);
-		*/
-
-		drive(0x7F);
-		PORTC |= (1 << PORTC7);
-		_delay_ms(500);
-		drive(0);
-		_delay_ms(500);
-		drive(-0x7F);
-		PORTC &= ~(1 << PORTC7);
-		_delay_ms(500);
-		drive(0);
-		_delay_ms(500);
-		printf("Test\n");
-
-		/*
-		setMotorL(0x7F);
-		PORTC |= (1 << PORTC7);
-		_delay_ms(500);
-		setMotorL(0);
-		_delay_ms(500);
-		setMotorL(-0x7F);
-		PORTC &= ~(1 << PORTC7);
-		_delay_ms(500);
-		setMotorL(0);
-		_delay_ms(500);
-		*/
+		
     }
 }
 
