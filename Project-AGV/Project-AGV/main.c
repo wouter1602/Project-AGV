@@ -13,17 +13,20 @@
 
 #include "pins.h"
 #include "motor.h"
+#include "magneto.h"
+#include "twi.h"
 
 int main(void) {
 	sei();
 	
 	usbDeviceAttach();
+	streamInit();
 	initPins();
 	initMotor();
-	streamInit();
+	initMagneto();
 	
 	DDRC |= (1 << DDC7);
-    /* Replace with your application code */
+	//twiWrite(0xAA, 0x7B, 0xFF);
     while (1) {
 		/*
 		setMotorR(0x7F);
@@ -75,4 +78,3 @@ int main(void) {
 		*/
     }
 }
-
