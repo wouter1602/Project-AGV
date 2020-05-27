@@ -20,7 +20,7 @@ static void initTimers(void) {
 
 //setup all the intterupts
 static void initInterrupt(void) {
-	
+	//Setup Limitswitches
 }
 
 //combine all the setups

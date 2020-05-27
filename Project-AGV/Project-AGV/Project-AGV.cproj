@@ -156,10 +156,22 @@
     <Compile Include="pins.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="tof.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tof.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="twi.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="twi.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ultrasoon.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ultrasoon.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
