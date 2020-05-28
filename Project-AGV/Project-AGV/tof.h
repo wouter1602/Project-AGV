@@ -18,8 +18,7 @@
 
 #define TOF_ADDRS 0xFF //?
 
-public:
-	enum regAddr{
+enum regAddr{
 	  SYSRANGE_START                              = 0x00,
 
       SYSTEM_THRESH_HIGH                          = 0x0C,
@@ -127,7 +126,7 @@ public:
 	bool setSignalRateLimit(float limit_Mcps);
 	float getSignalRateLimit(void);
 
-	bool setMeasurementTimingBudget(uint32_t budget);
+	bool setMeasurementTimingBudget(uint32_t budget_us);
 	uint32_t getMeasurementTimingBudget(void);
 
 	bool setVcselPulsePeriod(vcselPeriodType type, uint8_t period_pclks);
@@ -142,8 +141,7 @@ public:
 	inline uint16_t getTimeout(void) { return io_timeout; }
 	bool timeoutOccurred(void);
 
-	private:
-		struct SequenceStepEnables
+	struct SequenceStepEnables
     {
       boolean tcc, msrc, dss, pre_range, final_range;
     };
