@@ -135,6 +135,12 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ir.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ir.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="magneto.c">
       <SubType>compile</SubType>
     </Compile>
