@@ -15,6 +15,7 @@
 #include "motor.h"
 #include "magneto.h"
 #include "twi.h"
+#include "hall.h"
 
 int main(void) {
 	sei();

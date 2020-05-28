@@ -135,6 +135,12 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="hall.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="hall.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="magneto.c">
       <SubType>compile</SubType>
     </Compile>
