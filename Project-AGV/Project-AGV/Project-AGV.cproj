@@ -156,6 +156,12 @@
     <Compile Include="motor.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="photodiode.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="photodiode.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="pins.c">
       <SubType>compile</SubType>
     </Compile>

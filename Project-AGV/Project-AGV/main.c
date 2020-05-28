@@ -16,6 +16,7 @@
 #include "magneto.h"
 #include "twi.h"
 #include "hall.h"
+#include "photodiode.h"
 
 int main(void) {
 	sei();
