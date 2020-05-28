@@ -3,14 +3,14 @@
  *
  * Created: 27-5-2020 22:06:13
  *  Author: Wouter
- */ 
+ */
 
 
 #ifndef ULTRSOON_H_
 #define ULTRSOON_H_
 
 #include <avr/io.h>
-#include <avr/delay.h>
+#include <util/delay.h>
 #include <stdio.h>
 
 #include "pins.h"
