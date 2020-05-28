@@ -14,7 +14,7 @@
 
 #include "twi.h"
 
-#define MAGNETO_ADDR 0x3B
+#define MAGNETO_ADDR 0x3A
 
 /*LSM303D Registers*/
 #define TEMP_OUT_L		0x05	//r
