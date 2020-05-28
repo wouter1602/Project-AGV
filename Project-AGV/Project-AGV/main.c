@@ -25,6 +25,7 @@ int main(void) {
 	initPins();
 	initMotor();
 	initMagneto();
+	initHall();
 	
 	DDRC |= (1 << DDC7);
 	//twiWrite(0xAA, 0x7B, 0xFF);

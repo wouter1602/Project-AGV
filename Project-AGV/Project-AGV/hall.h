@@ -19,6 +19,6 @@
 #define HALL_THRESHOLD 0x7F
 
 void initHall(void);
-uint8_t getHallData(uint8_t sensor);
+uint8_t getHallData(void);
 
 #endif /* HALL_H_ */

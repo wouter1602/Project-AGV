@@ -6,7 +6,7 @@
  */
 
 #include "hall.h"
-void setupADC(void) {
+static void setupADC(void) {
 /*
 * setup ADC
 * PF0 A5 (ADC0)
