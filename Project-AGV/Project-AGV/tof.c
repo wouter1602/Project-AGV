@@ -7,7 +7,7 @@
 
 #include "tof.h"
 
-void initTof(void) {
+void initToF {
 	
 }
 
