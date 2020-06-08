@@ -26,17 +26,18 @@ int main(void) {
 	//initPins();
 	//initMotor();
 	//initMagneto();
-	printf("let's start\n");
+	printf("\nlet's start\n");
 	_delay_ms(100);
 	initTwi();
 	_delay_ms(100);
-	uint8_t TWI[] = {0x3A, 0x1F, 0x80};
+	initMagneto();
+	//uint8_t TWI[] = {0x3A, 0x1F, 0x80};
 	//uint8_t TWI[] = {0x04, 0x7B};
 	//twiWrite(0xAA, 0x7B, 0xFF);
-	twiWrite(TWI, 3);
-	printf("Start Twi\n");
+	//twiWrite(TWI, 3);
+	//printf("Start Twi\n");
 	//twiWrite(TWI, 2);
-	
+	printf("Done setup\n");
     while (1) {
 		//printf("%d\t%d\n", getMagnetoDataX(), getMagnetoDataY());
 		
@@ -48,7 +49,7 @@ int main(void) {
 				errorNt = 0;
 			}
 		}*/
-		twiWatchdog();
+		//twiWatchdog();
 		//printf("Error\t21, \tTWCR = 0x%x\n", (TWCR & 0xF8));
 		PORTC ^= (1 << PORTC7);
 		_delay_ms(500);

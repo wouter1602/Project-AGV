@@ -1,20 +1,45 @@
 /*
- * magneto.c
- *
- * Created: 25-5-2020 20:31:15
- *  Author: Wouter
- */ 
+* magneto.c
+*
+* Created: 25-5-2020 20:31:15
+*  Author: Wouter
+*/
 
 #include "magneto.h"
 
 void initMagneto(void) {
-	initTwi();
-	//twiWrite(MAGNETO_ADDR, CTRL0, (1 << BOOT));
-	_delay_ms(5); //wait for reboot
-	//twiWrite(MAGNETO_ADDR, CTRL5, ((1 << TEMP_EN) | (1 << M_RES0) | (1 << M_RES1) | (1 << M_ODR1) | (1 << M_ODR0))); //enable Temp, Magneto sensor (High accuracy) and 25 Hz measurement speed
-	//twiWrite(MAGNETO_ADDR, CTRL6, (1 << MFS0)); //Set magnetic gauss to +/- 4
-	//twiWrite(MAGNETO_ADDR, CTRL7, ((0 << MD0) | (0 << MD1))); //Enable magnetic to continuous-conversion mode
+	const uint8_t data1[3] = {MAGNETO_ADDR, CTRL0, (1 << BOOT)};
+	const uint8_t data2[3] = {MAGNETO_ADDR, CTRL5, ((1 << TEMP_EN) | (1 << M_RES0) | (1 << M_RES1) | (1 << M_ODR1) | (1 << M_ODR0))};
+	const uint8_t data3[3] = {MAGNETO_ADDR, CTRL6, (1 << MFS0)};
+	const uint8_t data4[3] = {MAGNETO_ADDR, CTRL7, ((0 << MD0) | (0 << MD1))};
+	#ifdef DEBUG
+	printf("Data in Array:\n");
+	for (int j = 0; j < 3; j++) {
+		printf("0x%x\t", data1[j]);
+	}
+	printf("\n");
+	for (int j = 0; j < 3; j++) {
+		printf("0x%x\t", data2[j]);
+	}
+	printf("\n");
+	for (int j = 0; j < 3; j++) {
+		printf("0x%x\t", data3[j]);
+	}
+	printf("\n");
+	for (int j = 0; j < 3; j++) {
+		printf("0x%x\t", data4[j]);
+	}
+	printf("\n");
+	#endif
 	
+	twiWrite(data1, 3);		//reboot magento sensro
+	_delay_ms(5); //wait for reboot
+	twiWrite(data2, 3); //Enable Temp, magneto sensor (High accuracy) and 25 Hz measurment
+	twiWrite(data3, 3); //Set magnetic Gaus to +/- 4
+	_delay_us(5);
+	//printf("Tmp: %x\n", TWSR);
+	twiWrite(data4, 3); //Enable magnetic to continous-conversion mode	
+	twiWrite(data1, 3);
 }
 
 uint16_t getMagnetoDataX(void) {
