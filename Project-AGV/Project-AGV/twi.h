@@ -77,10 +77,7 @@
 
 void initTwi(void);
 uint8_t twiWrite(const uint8_t data[], uint8_t size);
-//void twiWatchdog(void);
-//uint8_t twiRead(uint8_t addrs, uint8_t reg);
-//uint8_t twiTest(uint8_t addrs, uint8_t data);
-
-uint8_t errorNt;
+uint8_t twiRead(uint8_t *data, uint8_t writeSize, uint8_t readSize);
+uint8_t twiReadRS(uint8_t *data, uint8_t writeSize, uint8_t readSize);
 
 #endif /* TWI_H_ */

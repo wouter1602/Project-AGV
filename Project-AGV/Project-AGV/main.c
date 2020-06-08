@@ -26,6 +26,7 @@ int main(void) {
 	//initPins();
 	//initMotor();
 	//initMagneto();
+    uint8_t testData[3] = {0};
 	printf("\nlet's start\n");
 	_delay_ms(100);
 	initTwi();
@@ -38,8 +39,18 @@ int main(void) {
 	//printf("Start Twi\n");
 	//twiWrite(TWI, 2);
 	printf("Done setup\n");
+    uint16_t data = getMagnetoDataX(testData);
+    _delay_ms(20);
+    printf("Magneto1 0x%x\n", data);
+    printf("Data received1:\n0x%x\t0x%x\t0x%x\n", testData[0], testData[1], testData[2]);
+    data = getMagnetoDataX(testData);
+    _delay_ms(20);
+    printf("Magneto2 0x%x\n", data);
+    printf("Data received2:\n0x%x\t0x%x\t0x%x\n", testData[0], testData[1], testData[2]);
+    
     while (1) {
-		//printf("%d\t%d\n", getMagnetoDataX(), getMagnetoDataY());
+		//printf("Magneto 0x%x\n", getMagnetoDataX());
+        //printf("%d\t%d\n", getMagnetoDataX(), getMagnetoDataY());
 		
 		//twiTest(0x04, 0x3B);
 		

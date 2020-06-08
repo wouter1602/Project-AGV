@@ -412,7 +412,7 @@
 #define ACTD0		0
 
 void initMagneto(void);
-uint16_t getMagnetoDataX(void);
+uint16_t getMagnetoDataX(uint8_t *data_);
 uint16_t getMagnetoDataY(void);
 
 #endif /* MAGNETO_H_ */

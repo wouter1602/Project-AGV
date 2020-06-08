@@ -42,12 +42,22 @@ void initMagneto(void) {
 	twiWrite(data1, 3);
 }
 
-uint16_t getMagnetoDataX(void) {
+uint16_t getMagnetoDataX(uint8_t *data_) {
 	uint16_t data = 0;
-	uint8_t dataL = 0;//twiRead(MAGNETO_ADDR, OUT_X_L_M);
-	uint8_t dataH = 0;//twiRead(MAGNETO_ADDR, OUT_X_H_M);
-	data = (dataH << 8) | dataL;
-	return data;
+	//uint8_t dataL = 0;//twiRead(MAGNETO_ADDR, OUT_X_L_M);
+	//uint8_t dataH = 0;//twiRead(MAGNETO_ADDR, OUT_X_H_M);
+	//data = (dataH << 8) | dataL;
+	//return data;
+    uint8_t twiData[4] = {MAGNETO_ADDR, OUT_X_L_M, (MAGNETO_ADDR | 1)};
+#ifdef DEBUG
+    printf("Data in array 2:\n0x%x\t0x%x\t0x%x\n", twiData[0], twiData[1], twiData[2]);
+#endif
+    
+    twiReadRS(twiData, 2, 2);
+    for (int i = 0; i < 3; i++) {
+        data_[i] = twiData[i];
+    }
+    return data = twiData[1];
 }
 
 uint16_t getMagnetoDataY(void) {
