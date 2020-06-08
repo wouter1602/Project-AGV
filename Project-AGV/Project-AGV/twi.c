@@ -243,7 +243,7 @@ ISR(TWI_vect) {
                 twiData.length = twiData.data[(twiData.length + 1)];
                 twiData.rs = 0;
                 TWCR = (1 << TWEN) | (1 << TWIE) | (1 << TWINT) | (0 << TWEA) | (1 << TWSTA) | (0 << TWSTO) | (0 << TWWC); //Send restartbit
-            } else { //Send STop after last byte
+            } else { //Send stop after last byte
 #ifdef DEBUG
                 printf("RE\t0x%x\n", TWSR);
 #else

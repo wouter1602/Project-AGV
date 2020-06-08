@@ -69,7 +69,7 @@
 #define TWI_NO_STATE               0xF8  // No relevant state information available; TWINT = �0�
 #define TWI_BUS_ERROR              0x00  // Bus error due to an illegal START or STOP condition
 
-#define ASM_NOP_TIMES				1
+#define ASM_NOP_TIMES				2
 
 #ifndef MAX_BUFFER_LENGTH
 	#define MAX_BUFFER_LENGTH		10

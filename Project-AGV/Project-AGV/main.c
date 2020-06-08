@@ -49,19 +49,9 @@ int main(void) {
     printf("Data received2:\n0x%x\t0x%x\t0x%x\n", testData[0], testData[1], testData[2]);
     
     while (1) {
-		//printf("Magneto 0x%x\n", getMagnetoDataX());
-        //printf("%d\t%d\n", getMagnetoDataX(), getMagnetoDataY());
-		
-		//twiTest(0x04, 0x3B);
-		
-		/*while (errorNt != 20) {
-			if (errorNt != 0) {
-				printf("Error\t%d, \tTWCR = 0x%x\n", errorNt, (TWCR & 0xF8));
-				errorNt = 0;
-			}
-		}*/
-		//twiWatchdog();
-		//printf("Error\t21, \tTWCR = 0x%x\n", (TWCR & 0xF8));
+		data = getMagnetoDataX(testData);
+        _delay_ms(20);
+        printf("Magneto\t0x%x\n",data);
 		PORTC ^= (1 << PORTC7);
 		_delay_ms(500);
     }
