@@ -10,13 +10,10 @@
 #define IR_H_
 
 #include <avr/io.h>
-#include <avr/delay.h>
-#include <stdio.h>
 
 #include "pins.h"
 
-void initIr(void);
-uint16_t getIrData(uint8_t sensor);
+uint8_t getIrData(void);
 
 
 

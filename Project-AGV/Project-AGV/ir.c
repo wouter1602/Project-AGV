@@ -1,23 +1,12 @@
 /*
- */
+ * ir.c
+ *
+ * Created: 27-5-2020 22:08:54
+ *  Author: Wouter
+ */ 
 
-#include <util/delay.h>
+#include "ir.h"
 
-
-{
-    DDRB &= ~(1 << PORTD65);
-    detect IR()
-
-
-
-
-    uint8_t detect IR(uint8_t sensor){
-
-
-        if(PORTD & (<< PORTD65))
-        return 1;
-        else return 0;
-        }
-
+inline uint8_t getIrData(void) {
+	return ((PORTB >> IR) & 1);
 }
-

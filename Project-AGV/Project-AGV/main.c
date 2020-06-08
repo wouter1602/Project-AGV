@@ -18,64 +18,19 @@
 #include "ir.h"
 
 int main(void) {
-	sei();
 	
+	sei();
 	usbDeviceAttach();
 	streamInit();
 	initPins();
 	initMotor();
-	initMagneto();
-	
+	/*
+	 * Test code for the IR sensor Pin D11 (Arduino)
+	 */
 	DDRC |= (1 << DDC7);
-	//twiWrite(0xAA, 0x7B, 0xFF);
     while (1) {
-		/*
-		setMotorR(0x7F);
-		PORTC |= (1 << PORTC7);
+		PORTC ^= (1 << PORTC7);
+		printf("%d\n", getIrData());
 		_delay_ms(500);
-		setMotorR(0);
-		_delay_ms(500);
-		setMotorR(-0x7F);
-		PORTC &= ~(1 << PORTC7);
-		_delay_ms(500);
-		setMotorR(0);
-		_delay_ms(500);
-		*/
-
-		drive(0x7F);
-		PORTC |= (1 << PORTC7);
-		_delay_ms(500);
-		drive(0);
-		_delay_ms(500);
-		drive(-0x7F);
-		PORTC &= ~(1 << PORTC7);
-		_delay_ms(500);
-		drive(0);
-		_delay_ms(500);
-		printf("Test\n");
-
-		turnL(0x7F);
-		_delay_ms(500);
-		turnL(-0x7F);
-		_delay_ms(500);
-
-		turnR(0x7F);
-		_delay_ms(500);
-		turnR(-0x7F);
-		_delay_ms(500);
-		
-
-		/*
-		setMotorL(0x7F);
-		PORTC |= (1 << PORTC7);
-		_delay_ms(500);
-		setMotorL(0);
-		_delay_ms(500);
-		setMotorL(-0x7F);
-		PORTC &= ~(1 << PORTC7);
-		_delay_ms(500);
-		setMotorL(0);
-		_delay_ms(500);
-		*/
     }
 }
