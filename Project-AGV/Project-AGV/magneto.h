@@ -14,7 +14,7 @@
 
 #include "twi.h"
 
-#define MAGNETO_ADDR 0x3B
+#define MAGNETO_ADDR 0x3A
 
 /*LSM303D Registers*/
 #define TEMP_OUT_L		0x05	//r
@@ -412,7 +412,7 @@
 #define ACTD0		0
 
 void initMagneto(void);
-uint16_t getMagnetoDataX(void);
+uint16_t getMagnetoDataX(uint8_t *data_);
 uint16_t getMagnetoDataY(void);
 
 #endif /* MAGNETO_H_ */
