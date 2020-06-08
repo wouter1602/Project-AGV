@@ -7,10 +7,11 @@
 
 #include "tof.h"
 
-void initToF {
+void initToF() {
 	
 }
 
 uint16_t getTofData(uint8_t sensor) {
-	
+	uint16_t data = 0;
+    return data;
 }

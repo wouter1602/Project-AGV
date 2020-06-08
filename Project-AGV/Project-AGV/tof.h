@@ -10,14 +10,14 @@
 #define TOF_H_
 
 #include <avr/io.h>
-#include <avr/delay.h>
+#include <util/delay.h>
 #include <stdio.h>
 
 #include "pins.h"
 #include "twi.h"
 
 #define TOF_ADDRS 0xFF //?
-
+/*
 enum regAddr{
 	  SYSRANGE_START                              = 0x00,
 
@@ -167,13 +167,16 @@ enum regAddr{
     void getSequenceStepEnables(SequenceStepEnables * enables);
     void getSequenceStepTimeouts(SequenceStepEnables const * enables, SequenceStepTimeouts * timeouts);
 
-    bool performSingleRefCalibration(uint8_t vhv_init_byte);
+    bool performSingleRefCalibration(uint8_t vhv_init_byte);*/
+//put in quotation because Bool and enum Don't compile in C
 
+/*
     static uint16_t decodeTimeout(uint16_t value);
     static uint16_t encodeTimeout(uint32_t timeout_mclks);
     static uint32_t timeoutMclksToMicroseconds(uint16_t timeout_period_mclks, uint8_t vcsel_period_pclks);
     static uint32_t timeoutMicrosecondsToMclks(uint32_t timeout_period_us, uint8_t vcsel_period_pclks);
-
+*/
+//Can't have static definse in .h file in C
 
 
 
