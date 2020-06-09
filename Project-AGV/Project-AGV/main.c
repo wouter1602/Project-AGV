@@ -25,75 +25,45 @@ int main(void) {
 	usbDeviceAttach();
 	streamInit();
 	_delay_ms(2000);
-	
+#ifdef DEBUG
 	printf("\nlet's start\n");
+#endif
+	initPins();
 	initMotor();
 	//_delay_ms(100);
 	initTwi();
 	//_delay_ms(100);
 	initMagneto();
+#ifdef DEBUG
 	printf("Done setup\n");
+#endif
 
 	float avg[2] = {0};
 	int32_t testData = 0;
+	//Calibrate Zumo
+	PORTC |= (1 << PORTC7);
+	while(buttonPressed());		//wait for button pressed
+	_delay_ms(5);
+	PORTC &= ~(1 << PORTC7);
 	magnetoCallibrate(60);
+	
+	
+	//start Zumo	
+	PORTC|= (1 << PORTC7);
+	while(buttonPressed());		//wait for button pressed
+	_delay_ms(5);
+	PORTC &= ~(1 << PORTC7);
+	setHeading();
+	
+	
     while (1) {
-		avg[0] = getAvgMagnetoDataX();
-		avg[1] = getAvgMagnetoDataY();
-		
-		testData = 100 * magnetoHeading(avg, 2);
-		
-        _delay_ms(20);
-		printf("Angel: %d\n", testData);
-		PORTC ^= (1 << PORTC7);
-		_delay_ms(500);
-		/*
-		setMotorR(0x7F);
-		PORTC |= (1 << PORTC7);
-		_delay_ms(500);
-		setMotorR(0);
-		_delay_ms(500);
-		setMotorR(-0x7F);
-		PORTC &= ~(1 << PORTC7);
-		_delay_ms(500);
-		setMotorR(0);
-		_delay_ms(500);
-		*/
-
-		drive(0x7F);
-		PORTC |= (1 << PORTC7);
-		_delay_ms(500);
-		drive(0);
-		_delay_ms(500);
-		drive(-0x7F);
-		PORTC &= ~(1 << PORTC7);
-		_delay_ms(500);
-		drive(0);
-		_delay_ms(500);
-		printf("Test\n");
-
-		turnL(0x7F);
-		_delay_ms(500);
-		turnL(-0x7F);
-		_delay_ms(500);
-
-		turnR(0x7F);
-		_delay_ms(500);
-		turnR(-0x7F);
-		_delay_ms(500);
-		
-
-		/*
-		setMotorL(0x7F);
-		PORTC |= (1 << PORTC7);
-		_delay_ms(500);
-		setMotorL(0);
-		_delay_ms(500);
-		setMotorL(-0x7F);
-		PORTC &= ~(1 << PORTC7);
-		_delay_ms(500);
-		setMotorL(0);
-		_delay_ms(500);
-		*/
+		//navigate();
+		//turnR(90);
+		//float x = getAvgMagnetoDataX();
+		//float y = getAvgMagnetoDataY();
+		float heading = getMagnetoHeading();
+		//printf("{%d/100.0,%d/100.0}, ", (int16_t) (x * 100), (int16_t) (y * 100));
+		printf("Heading: %d\n", (int16_t)heading);
+		//printf("x: %d\ty: %d\tz: %d\n", (int16_t) getAvgMagnetoDataX(), (int16_t) getAvgMagnetoDataY(), (int16_t) getAvgMagnetoDataZ());
     }
 }

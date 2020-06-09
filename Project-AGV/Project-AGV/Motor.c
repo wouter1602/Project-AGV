@@ -91,15 +91,24 @@ void drive(int16_t speed) {
 }
 
 //turn so many degrees right
-void turnR(uint16_t speed) {
-	setMotorL(speed);
-	setMotorR(-speed);
+void turnR(float degrees) {
+	int16_t data;
+	setMotorL(ROTATION_SPEED);
+	setMotorR((-ROTATION_SPEED));
+	while(!(getMagnetoHeading() > (degrees - HEADING_DEVEATION) && getMagnetoHeading() < (degrees + HEADING_DEVEATION))){
+		data = getMagnetoHeading();
+		printf("Megneto Heading: %d\n", data);
+	}
+	
+	setMotorL(0);
+	setMotorR(0);
 }
 
 //turn so many degrees left
-void turnL(uint16_t speed) {
-	setMotorR(speed);
-	setMotorL(-speed);
+void turnL(float degrees) {
+	float curHeading = getMagnetoHeading();
+	setMotorR(ROTATION_SPEED);
+	setMotorL(-ROTATION_SPEED);
 }
 
 //turn 90 degrees right

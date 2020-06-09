@@ -16,16 +16,18 @@
 #include <stdlib.h>
 
 #include "pins.h"
+#include "magneto.h"
 
 #define NINTEY_DEGREES 90		//Needed to turn 90 degreees
-
+#define ROTATION_SPEED 200
+#define HEADING_DEVEATION 5
 
 void initMotor(void);
 void setMotorR(int16_t speed);
 void setMotorL(int16_t speed);
 void drive(int16_t speed);
-void turnR(uint16_t degrees);
-void turnL(uint16_t degrees);
+void turnR(float degrees);
+void turnL(float degrees);
 void turn90R(void);
 void turn90L(void);
 void stopMotorL(void);
