@@ -238,7 +238,7 @@ ISR(TWI_vect) {
 #endif
                 twiData.data[0] = twiData.data[twiData.length];
 #ifdef DEBUG
-                printf("Dr\t0x%x\t%d\n", twiData.data[0], twiData.length);
+                printf("Dr\t0x%x\n", twiData.data[0]);
 #endif
                 twiData.length = twiData.data[(twiData.length + 1)];
                 twiData.rs = 0;
@@ -254,21 +254,20 @@ ISR(TWI_vect) {
 
             break;
         case TWI_MRX_DATA_ACK:
-            //twiData.dataIndex = 0;
             twiData.data[twiData.dataIndex++] = TWDR;
         case TWI_MRX_ADR_ACK: //Data byte has been received and ACK transmitted
 
 #ifdef DEBUG
             printf("DR\t0x%x\n", twiData.data[(twiData.dataIndex - 1)]);
-            printf("Rr\t0x%x\n", TWSR);
 #else
             asmNop(ASM_NOP_TIMES);
 #endif
             if (twiData.dataIndex < (twiData.length - 1)) { //Check if more bytes need to be received
-                TWCR = (1 << TWEN) | (1 << TWIE) | (1 << TWINT) | (1 << TWEA) | (0 << TWSTA) | (0 << TWSTO) | (0 << TWWC); //Send ACK and wait for next bit
 #ifdef DEBUG
-                printf("Ri\t0x%x\n", TWSR);
+				printf("Ri\t0x%x\n", TWSR);
 #endif
+                TWCR = (1 << TWEN) | (1 << TWIE) | (1 << TWINT) | (1 << TWEA) | (0 << TWSTA) | (0 << TWSTO) | (0 << TWWC); //Send ACK and wait for next bit
+
 
             } else { //Last data byte received
 #ifdef DEBUG

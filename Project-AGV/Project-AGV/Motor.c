@@ -111,9 +111,14 @@ void turn90L(void) {
 }
 
 void stopMotorR(void) {
-	
+	setMotorL(0);
 }
 
 void stopMotorL(void) {
-	
+	setMotorR(0);
+}
+
+void stopAllMotors(void) {
+	stopMotorL();
+	stopMotorR();
 }

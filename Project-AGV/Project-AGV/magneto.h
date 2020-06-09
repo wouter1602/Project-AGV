@@ -11,8 +11,10 @@
 
 #include <avr/io.h>
 #include <util/delay.h>
+#include <math.h>
 
 #include "twi.h"
+#include "motor.h"
 
 #define MAGNETO_ADDR 0x3A
 
@@ -411,8 +413,26 @@
 #define ACTD1		1
 #define ACTD0		0
 
+#ifndef MAGNETO_AVG
+#define MAGNETO_AVG 10
+#endif
+
+#ifndef CAL_SPEED
+#define CAL_SPEED 350
+#endif
+
+//Calabrition data
+
+#define MAX_X -1898
+#define Min_X -3415
+#define MAX_Y -1332
+#define MIN_Y -2915
+
 void initMagneto(void);
-uint16_t getMagnetoDataX(uint8_t *data_);
-uint16_t getMagnetoDataY(void);
+void magnetoCallibrate(uint8_t sampleSize);
+float getAvgMagnetoDataX(void);
+float getAvgMagnetoDataY(void);
+float magnetoHeading(float *data, uint16_t size);
+
 
 #endif /* MAGNETO_H_ */

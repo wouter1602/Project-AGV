@@ -30,5 +30,6 @@ void turn90R(void);
 void turn90L(void);
 void stopMotorL(void);
 void stopMotorR(void);
+void stopAllMotors(void);
 
 #endif /* MOTOR_H_ */
