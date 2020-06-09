@@ -91,24 +91,51 @@ void drive(int16_t speed) {
 }
 
 //turn so many degrees right
-void turnR(float degrees) {
-	int16_t data;
+void turnR(int16_t degrees) {
 	setMotorL(ROTATION_SPEED);
-	setMotorR((-ROTATION_SPEED));
-	while(!(getMagnetoHeading() > (degrees - HEADING_DEVEATION) && getMagnetoHeading() < (degrees + HEADING_DEVEATION))){
-		data = getMagnetoHeading();
-		printf("Megneto Heading: %d\n", data);
-	}
+	setMotorR(-ROTATION_SPEED);
+	while(!(getMagnetoHeading() > (degrees - HEADING_DEVEATION) && getMagnetoHeading() < (degrees + HEADING_DEVEATION)));
 	
 	setMotorL(0);
 	setMotorR(0);
 }
 
 //turn so many degrees left
-void turnL(float degrees) {
-	float curHeading = getMagnetoHeading();
+void turnL(int16_t degrees) {
 	setMotorR(ROTATION_SPEED);
 	setMotorL(-ROTATION_SPEED);
+	while(!(getMagnetoHeading() > (degrees - HEADING_DEVEATION) && getMagnetoHeading() < (degrees + HEADING_DEVEATION)));
+	
+	setMotorL(0);
+	setMotorR(0);
+}
+
+void turn(int16_t degrees) {
+	int16_t curPos = getMagnetoHeading();
+	
+	/*
+	int16_t relativeHeading = curPos - degrees;
+
+	// constrain to -180 to 180 degree range
+	if (relativeHeading > 180)
+	relativeHeading -= 360;
+	if (relativeHeading < -180)
+	relativeHeading += 360;*/
+	
+	int16_t absDegrees = curPos + degrees;
+	while(absDegrees < 0) {
+		absDegrees += 360;
+	}
+	while(absDegrees > 360) {
+		absDegrees -= 360;
+	}
+	
+	if (absDegrees < curPos) {
+		turnL(absDegrees);
+	} else {
+		turnR(absDegrees);
+	}
+	
 }
 
 //turn 90 degrees right

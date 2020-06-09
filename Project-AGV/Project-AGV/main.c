@@ -55,15 +55,20 @@ int main(void) {
 	PORTC &= ~(1 << PORTC7);
 	setHeading();
 	
+	turnR(90);
 	
     while (1) {
+		turn(180);
+		_delay_ms(100);
+		turn(-180);
+		_delay_ms(100);
 		//navigate();
-		//turnR(90);
+		
 		//float x = getAvgMagnetoDataX();
 		//float y = getAvgMagnetoDataY();
-		float heading = getMagnetoHeading();
+		//float heading = getMagnetoHeading();
 		//printf("{%d/100.0,%d/100.0}, ", (int16_t) (x * 100), (int16_t) (y * 100));
-		printf("Heading: %d\n", (int16_t)heading);
+		//printf("Heading: %d\n", (int16_t)heading);
 		//printf("x: %d\ty: %d\tz: %d\n", (int16_t) getAvgMagnetoDataX(), (int16_t) getAvgMagnetoDataY(), (int16_t) getAvgMagnetoDataZ());
     }
 }

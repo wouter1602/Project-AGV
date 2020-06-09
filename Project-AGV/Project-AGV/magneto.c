@@ -216,9 +216,9 @@ void magnetoCallibrate(uint8_t sampleSize) {
 	setMotorL(0);
 	setMotorR(0);
 	
-	//#ifdef DEBUG
+#ifdef DEBUG
 	printf("Max X=\t%d\nMax Y=\t%d\nMIN X=\t%d\nMin Y=\t%d\n",(int16_t) (vector.max.x),(int16_t) (vector.max.y),(int16_t) (vector.min.x),(int16_t) (vector.min.y));
-	//#endif
+#endif
 	magnetoVectors.max.x = vector.max.x;
 	magnetoVectors.max.y = vector.max.y;
 	magnetoVectors.min.x = vector.min.x;
