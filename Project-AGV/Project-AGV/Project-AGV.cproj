@@ -229,12 +229,6 @@
     <Compile Include="watchdog.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="ultrasoon.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="ultrasoon.h">
-      <SubType>compile</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Thirdparty\Leonardo_AVRC\leonardoe_usb_driver\leonardoe_usb_driver.cproj">
