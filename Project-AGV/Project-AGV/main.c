@@ -15,6 +15,8 @@
 #include "motor.h"
 #include "magneto.h"
 #include "twi.h"
+#include "hall.h"
+#include "photodiode.h"
 #include "tof.h"
 
 int main(void) {
@@ -24,36 +26,50 @@ int main(void) {
 	usbDeviceAttach();
 	streamInit();
 	_delay_ms(2000);
-	//initPins();
-	//initMotor();
-	//initMagneto();
-    uint8_t testData[3] = {0};
+#ifdef DEBUG
 	printf("\nlet's start\n");
-	_delay_ms(100);
+#endif
+	initPins();
+	initMotor();
+	//_delay_ms(100);
 	initTwi();
-	_delay_ms(100);
+	//_delay_ms(100);
 	initMagneto();
-	//uint8_t TWI[] = {0x3A, 0x1F, 0x80};
-	//uint8_t TWI[] = {0x04, 0x7B};
-	//twiWrite(0xAA, 0x7B, 0xFF);
-	//twiWrite(TWI, 3);
-	//printf("Start Twi\n");
-	//twiWrite(TWI, 2);
+#ifdef DEBUG
 	printf("Done setup\n");
-    uint16_t data = getMagnetoDataX(testData);
-    _delay_ms(20);
-    printf("Magneto1 0x%x\n", data);
-    printf("Data received1:\n0x%x\t0x%x\t0x%x\n", testData[0], testData[1], testData[2]);
-    data = getMagnetoDataX(testData);
-    _delay_ms(20);
-    printf("Magneto2 0x%x\n", data);
-    printf("Data received2:\n0x%x\t0x%x\t0x%x\n", testData[0], testData[1], testData[2]);
-    
+#endif
+
+	float avg[2] = {0};
+	int32_t testData = 0;
+	//Calibrate Zumo
+	PORTC |= (1 << PORTC7);
+	while(buttonPressed());		//wait for button pressed
+	_delay_ms(5);
+	PORTC &= ~(1 << PORTC7);
+	magnetoCallibrate(60);
+	
+	
+	//start Zumo	
+	PORTC|= (1 << PORTC7);
+	while(buttonPressed());		//wait for button pressed
+	_delay_ms(5);
+	PORTC &= ~(1 << PORTC7);
+	setHeading();
+	
+	turnR(90);
+	
     while (1) {
-		data = getMagnetoDataX(testData);
-        _delay_ms(20);
-        printf("Magneto\t0x%x\n",data);
-		PORTC ^= (1 << PORTC7);
-		_delay_ms(500);
+		turn(180);
+		_delay_ms(100);
+		turn(-180);
+		_delay_ms(100);
+		//navigate();
+		
+		//float x = getAvgMagnetoDataX();
+		//float y = getAvgMagnetoDataY();
+		//float heading = getMagnetoHeading();
+		//printf("{%d/100.0,%d/100.0}, ", (int16_t) (x * 100), (int16_t) (y * 100));
+		//printf("Heading: %d\n", (int16_t)heading);
+		//printf("x: %d\ty: %d\tz: %d\n", (int16_t) getAvgMagnetoDataX(), (int16_t) getAvgMagnetoDataY(), (int16_t) getAvgMagnetoDataZ());
     }
 }

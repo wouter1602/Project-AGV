@@ -17,19 +17,6 @@
 
 #include "watchdog.h"
 
-
-#define START			0x08	//TWI start
-#define REP_START		0x10	//TWI repeat start
-#define MT_SLA_ACK		0x18	//SLA+W has been transmitted, ACK was received
-#define MT_SLA_NACK		0x20	//SLA+W has been transmitted, NACK was received
-#define MT_DATA_ACK		0x28	//data was transmitted, ACK received
-#define MT_DATA_NACK	0x30	//data was transmitted, NACk received
-#define READ_ONLY		0x00	//Read only pointer register mode
-#define MR_SLA_ACK		0x40	//SLA+R has been transmitted, ACK was received
-#define MR_SLA_NACK		0x48	//SLA+R has been transmitted, NACK was received
-#define MR_DATA_ACK		0x50	//data was received, ACK send
-#define MR_DATA_NACK	0x58	//data was received, NACK send
-
 // General TWI Master status codes
 #define TWI_START                  0x08  // START has been transmitted
 #define TWI_REP_START              0x10  // Repeated START has been transmitted
