@@ -24,59 +24,15 @@ int main(void) {
 	usbDeviceAttach();
 	streamInit();
 	initPins();
-	initMotor();
-	initMagneto();
+	//initMotor();
+	//initMagneto();
+	
+	initPhotodiode();
 	
 	DDRC |= (1 << DDC7);
-	//twiWrite(0xAA, 0x7B, 0xFF);
     while (1) {
-		/*
-		setMotorR(0x7F);
-		PORTC |= (1 << PORTC7);
-		_delay_ms(500);
-		setMotorR(0);
-		_delay_ms(500);
-		setMotorR(-0x7F);
-		PORTC &= ~(1 << PORTC7);
-		_delay_ms(500);
-		setMotorR(0);
-		_delay_ms(500);
-		*/
-
-		drive(0x7F);
-		PORTC |= (1 << PORTC7);
-		_delay_ms(500);
-		drive(0);
-		_delay_ms(500);
-		drive(-0x7F);
-		PORTC &= ~(1 << PORTC7);
-		_delay_ms(500);
-		drive(0);
-		_delay_ms(500);
-		printf("Test\n");
-
-		turnL(0x7F);
-		_delay_ms(500);
-		turnL(-0x7F);
-		_delay_ms(500);
-
-		turnR(0x7F);
-		_delay_ms(500);
-		turnR(-0x7F);
-		_delay_ms(500);
-		
-
-		/*
-		setMotorL(0x7F);
-		PORTC |= (1 << PORTC7);
-		_delay_ms(500);
-		setMotorL(0);
-		_delay_ms(500);
-		setMotorL(-0x7F);
-		PORTC &= ~(1 << PORTC7);
-		_delay_ms(500);
-		setMotorL(0);
-		_delay_ms(500);
-		*/
+		PORTC ^= (1 << PORTC7);
+		printf("0: 0x%x\t1: 0x%x\t2: 0x%x\t3: 0x%x\t4: 0x%x\t5: 0x%x\n", getPhotodiodeData(0), getPhotodiodeData(1), getPhotodiodeData(2), getPhotodiodeData(3), getPhotodiodeData(4), getPhotodiodeData(5));
+		_delay_ms(100);
     }
 }

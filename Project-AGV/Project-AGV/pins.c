@@ -11,6 +11,10 @@
 static void initIo(void) {
 	DDRB |= (1 << M2DIR) | (1 << M1PWM) | (1 << M2PWM);
 	DDRE |= (1 << M1DIR);
+	
+	DDRD |= (1 << PHOTOLIGHT);
+	
+	PORTD &= ~(1 << PHOTOLIGHT);
 }
 
 //setup all the timers

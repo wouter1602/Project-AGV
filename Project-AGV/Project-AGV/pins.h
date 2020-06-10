@@ -17,6 +17,8 @@
 #define M1PWM 5 //PB5
 #define M2PWM 6 //PB6
 
+#define PHOTOLIGHT 1
+
 void initPins(void);
 
 #endif /* PINS_H_ */

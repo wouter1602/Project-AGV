@@ -16,6 +16,6 @@
 #include "pins.h"
 
 void initPhotodiode(void);
-uint8_t getPhotodiodeData(uint8_t sensor);
+uint16_t getPhotodiodeData(uint8_t sensor);
 
 #endif /* PHOTODIODE_H_ */
