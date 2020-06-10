@@ -76,7 +76,7 @@ uint8_t twiWrite(const uint8_t *data, uint8_t size) {
     }
 
     twiData.watchdogOverflow = 0;
-    startWatchdog((uint8_t*) & twiData.watchdogOverflow);
+    startWatchdog((uint8_t*) &twiData.watchdogOverflow);
     while (twiTransceiverBusy()); //Wait for TWI is ready for next transmission
     stopWatchdog();
     if (twiData.watchdogOverflow == 1) {

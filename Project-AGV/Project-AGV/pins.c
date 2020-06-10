@@ -13,8 +13,11 @@ static void initIo(void) {
 	DDRE |= (1 << M1DIR);
 	
 	DDRD |= (1 << PHOTOLIGHT);
+	DDRD &= ~(1 << ZUMO_BUTTON); //Set zumo_button as input
+	
 	
 	PORTD &= ~(1 << PHOTOLIGHT);
+	PORTD |= (1 << ZUMO_BUTTON); //set pull up on zumo button
 }
 
 //setup all the timers
@@ -32,4 +35,8 @@ void initPins(void){
 	initIo();
 	initTimers();
 	initInterrupt();
+}
+
+inline uint8_t buttonPressed(void) {
+	return (PIND & (1 << ZUMO_BUTTON));
 }

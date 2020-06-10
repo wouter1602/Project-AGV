@@ -62,6 +62,9 @@ ISR(WDT_vect) {
 		#endif
 	} else {
 		*addrs_ ^= 1; //changes the first bit of the data pointed to addrs_
+		#ifdef DEBUG
+		printf("***WATCHDOG VARIABLE CHANGED TO: 0x%x***\n", *addrs_);
+		#endif
 		addrs_ = NULL;
 	}
 }
