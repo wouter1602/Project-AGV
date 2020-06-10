@@ -7,6 +7,16 @@
 
 #include "tof.h"
 
+static void getDeviceInfo(uint8_t address, uint8_t *data) {
+	
+}
+
+void changeTofAddress(uint8_t orignalAddress, uint8_t newAddres) {
+	newAddres &= 0x7F;
+	
+	
+}
+
 void initToF() {
 	
 }
