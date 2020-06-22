@@ -22,6 +22,9 @@
 int main(void) {
 	DDRC |= (1 << DDC7);
 	sei();
+	usbDeviceAttach();		//setup bootloader
+	streamInit();			//enable USART over USB
+	_delay_ms(2000);		//Wait 2 sec for bootloader to finish
 	
 	usbDeviceAttach();
 	streamInit();
