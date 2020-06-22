@@ -25,31 +25,23 @@ int main(void) {
 	usbDeviceAttach();		//setup bootloader
 	streamInit();			//enable USART over USB
 	_delay_ms(2000);		//Wait 2 sec for bootloader to finish
-	
-	usbDeviceAttach();
-	streamInit();
-	_delay_ms(2000);
+
 #ifdef DEBUG
 	printf("\nlet's start\n");
 #endif
 	initPins();
 	initMotor();
-	//_delay_ms(100);
 	initTwi();
-	//_delay_ms(100);
 	initMagneto();
 #ifdef DEBUG
 	printf("Done setup\n");
 #endif
-
-	float avg[2] = {0};
-	int32_t testData = 0;
 	//Calibrate Zumo
 	PORTC |= (1 << PORTC7);
 	while(buttonPressed());		//wait for button pressed
 	_delay_ms(5);
 	PORTC &= ~(1 << PORTC7);
-	magnetoCallibrate(60);
+	magnetoCallibrate(60);		//Calibrate Zumo Magneto sensor
 	
 	
 	//start Zumo	
@@ -57,22 +49,9 @@ int main(void) {
 	while(buttonPressed());		//wait for button pressed
 	_delay_ms(5);
 	PORTC &= ~(1 << PORTC7);
-	setHeading();
-	
-	turnR(90);
 	
     while (1) {
-		turn(180);
-		_delay_ms(100);
-		turn(-180);
-		_delay_ms(100);
-		//navigate();
-		
-		//float x = getAvgMagnetoDataX();
-		//float y = getAvgMagnetoDataY();
-		//float heading = getMagnetoHeading();
-		//printf("{%d/100.0,%d/100.0}, ", (int16_t) (x * 100), (int16_t) (y * 100));
-		//printf("Heading: %d\n", (int16_t)heading);
-		//printf("x: %d\ty: %d\tz: %d\n", (int16_t) getAvgMagnetoDataX(), (int16_t) getAvgMagnetoDataY(), (int16_t) getAvgMagnetoDataZ());
+		printf("Current heading:\t%d\n", (int32_t) round(getMagnetoHeading()));		//Prints out current heading for debugging
+		_delay_ms(1000);
     }
 }

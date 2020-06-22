@@ -31,7 +31,7 @@ static int16_t getMagnetoDataX(void) {
 	uint8_t twiData[3] ={MAGNETO_ADDR, (OUT_X_L_M | (1 << 7)), (MAGNETO_ADDR | 1)};
 
 	
-	twiReadRS(twiData, 2, 3);               //Read Z-axes magneto sensor
+	twiReadRS(twiData, 2, 3);               //Read X-axes magneto sensor
 	data = (twiData[2] << 8) | twiData[1];  //Combine two 8-bit values to one 16-bit value
 	return data;
 }
@@ -50,7 +50,7 @@ static int16_t getMagnetoDataY(void) {
 }
 
 /*
- * Gets magneto data for the Y-axes
+ * Gets magneto data for the Z-axes
  * returns signed 16-bit value from the sensor.
  */
 static int16_t getMagnetoDataZ(void) {
@@ -62,33 +62,45 @@ static int16_t getMagnetoDataZ(void) {
 	return data;
 }
 
-static float getMagnetoDataXAvg(void) {
+/*
+ * Returns a 32-bit float with an average value of the magneto sensor X-axes data.
+ * The amount of times measured is defined by the "MAGNETO_AVG" define.
+ */
+static float getMagnetoDataXAvg(uint8_t times) {
 	float data = 0;
-	for (int i = 0; i < CAL_TIMES; i++)	{
+	for (int i = 0; i < times; i++)	{
 		data += getMagnetoDataX();
 	}
 	
-	data /= CAL_TIMES;
+	data /= times;
 	return round(data);
 }
 
-static float getMagnetoDataYAvg(void) {
+/*
+ * Returns a 32-bit float with an average value of the magneto sensor Y-axes data.
+ * The amount of times measured is defined by the "MAGNETO_AVG" define.
+ */
+static float getMagnetoDataYAvg(uint8_t times) {
 	float data = 0;
-	for (int i = 0; i < CAL_TIMES; i++)	{
+	for (int i = 0; i < times; i++)	{
 		data += getMagnetoDataY();
 	}
 	
-	data /= CAL_TIMES;
+	data /= times;
 	return round(data);
 }
 
-static float getMagnetoDataZAvg(void) {
+/*
+ * Returns a 32-bit float with an average value of the magneto sensor Z-axes data.
+ * The amount of times measured is defined by the "MAGNETO_AVG" define.
+ */
+static float getMagnetoDataZAvg(uint8_t times) {
 	int32_t data = 0;
-	for (int i = 0; i < CAL_TIMES; i++)	{
+	for (int i = 0; i < times; i++)	{
 		data += getMagnetoDataZ();
 	}
 	
-	data /= CAL_TIMES;
+	data /= times;
 	return round(data);
 }
 
@@ -149,8 +161,25 @@ static int16_t getAcceleroDataZ(void) {
 }//Currently not used
 
 /*
+ * Returns an 32-bit float of the absolute angle in degrees.
+ * The angle is based on the earths magnetic field.
+ * the array that should be send should be 2 long.
+ * the first should be the magneto X-axes data the second should be the magneto Y-axes data.
+ */
+static float magnetoHeading(float *data, uint16_t size) {
+	float x_scaled = 2.0*(float) (data[0] - magnetoVectors.min.x) / ( magnetoVectors.max.x - magnetoVectors.min.x) - 1.0;
+	float y_scaled = 2.0*(float) (data[1] - magnetoVectors.min.y) / ( magnetoVectors.max.y - magnetoVectors.min.y) - 1.0;
+	
+	float angle = atan2(y_scaled, x_scaled) * 180 / M_PI;		//Calculate angle.
+	if (angle < 0) {
+		angle += 360;					//If the angle is below 0 360 gets added to keep it within the 360 degree rotation range.
+	}
+	return angle;
+}
+
+/*
  * Sets up the Magneto sensor through TWI (I�C).
- * Start measurement on 50Hz whith high resolution.
+ * Start measurement on 50Hz with high resolution.
  * setup default value's in the calibration array
  */
 void initMagneto(void) {		
@@ -173,64 +202,6 @@ void initMagneto(void) {
 }
 
 /*
- * Returns a 32-bit float with an average value of the magneto sensor X-axes data.
- * The amount of times measured is defined by the "MAGNETO_AVG" define.
- */
-float getAvgMagnetoDataX(void) {
-	float avgX = 0.0;					//Set's the float to 0.0
-	for (int i = 0; i < MAGNETO_AVG; i++) {
-		avgX += getMagnetoDataX();		//Calculate the sum of X-axes magneto data
-	}
-	
-	avgX /= MAGNETO_AVG;				//Divide sum by the times measured.
-	
-	return avgX;
-}
-
-/*
- * Return a 32-bit float with an average value of the magneto sensor Y-axes data.
- * The amount of times measured is defined by the "MAGNETO_AVG" define.
- */
-float getAvgMagnetoDataY(void) {
-	float avgY = 0.0;				//Set's the float to 0.0
-	for (int i = 0; i < MAGNETO_AVG; i++) {
-		avgY += getMagnetoDataY();
-	}
-	
-	avgY /= MAGNETO_AVG;				//Divide sum by the times measured
-	
-	return avgY;
-}
-
-/*
- * Returns an 32-bit float of the absolute angle in degrees.
- * The angle is based on the earths magnetic field.
- * the array that should be send should be 2 long.
- * the first should be the magneto X-axes data the second should be the magneto Y-axes data.
- */
-float getAvgMagnetoDataZ(void) {
-	float avgZ = 0.0;
-	for (int i = 0; i < MAGNETO_AVG; i++) {
-		avgZ += getMagnetoDataZ();
-	}
-	
-	avgZ /= MAGNETO_AVG;
-	
-	return avgZ;
-}
-
-float magnetoHeading(float *data, uint16_t size) {
-	float x_scaled = 2.0*(float) (data[0] - magnetoVectors.min.x) / ( magnetoVectors.max.x - magnetoVectors.min.x) - 1.0;
-	float y_scaled = 2.0*(float) (data[1] - magnetoVectors.min.y) / ( magnetoVectors.max.y - magnetoVectors.min.y) - 1.0;
-	
-	float angle = atan2(y_scaled, x_scaled) * 180 / M_PI;		//Calculate angle.
-	if (angle < 0) {
-		angle += 360;					//If the angle is below 0 360 gets added to keep it within the 360 degree rotation range.
-	}
-	return angle;
-}
-
-/*
  * Calibrate the Magneto sensor Minimum and Maximum for the X and Y-axes.
  * sampleSize is the amount of times this function should gather data for an average.
  * The data gets stored in an local struct for other functions to use.
@@ -244,11 +215,11 @@ void magnetoCallibrate(uint8_t sampleSize) {
 	setMotorL(CAL_SPEED);			//Let's the Zumo rotate so the angles of the magneto sensor change
 	setMotorR(-CAL_SPEED);
 	for (int i = 0; i < sampleSize; i++) {
-		x = (int32_t) round(getMagnetoDataXAvg()); //Gather X-axes data
-		y = (int32_t) round(getMagnetoDataYAvg()); //Gather Y-axes data
+		x = (int32_t) round(getMagnetoDataXAvg(CAL_TIMES)); //Gather X-axes data
+		y = (int32_t) round(getMagnetoDataYAvg(CAL_TIMES)); //Gather Y-axes data
 		
-		x = getMagnetoDataX();		
-		y = getMagnetoDataY();		
+		//x = getMagnetoDataX();		
+		//y = getMagnetoDataY();		
 		vector.min.x = min(vector.min.x, x);
 		vector.min.y = min(vector.min.y, y);	
 		
@@ -270,9 +241,13 @@ void magnetoCallibrate(uint8_t sampleSize) {
 	magnetoVectors.min.y = vector.min.y;	
 }
 
+/*
+ * Returns heading of the zumo in degrees.
+ * from 0 to 360 degrees.
+ */
 float getMagnetoHeading(void) {
 	float data[2] = {0.0};
-	data[0] = getAvgMagnetoDataX();
-	data[1] = getAvgMagnetoDataY();
+	data[0] = getMagnetoDataXAvg(MAGNETO_AVG);
+	data[1] = getMagnetoDataYAvg(MAGNETO_AVG);
 	return magnetoHeading(data, 2);
 }
