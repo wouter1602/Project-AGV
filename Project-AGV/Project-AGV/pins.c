@@ -12,10 +12,11 @@ static void initIo(void) {
 	DDRB |= (1 << M2DIR) | (1 << M1PWM) | (1 << M2PWM);
 	DDRE |= (1 << M1DIR);
 	
-	DDRD &= ~(1 << ZUMO_BUTTON); //Set zumo_button as input
-
 	DDRD |= (1 << PHOTOLIGHT);
 	DDRD &= ~(1 << ZUMO_BUTTON); //Set zumo_button as input
+	
+	PORTD |= (1 << PHOTOLIGHT);
+	PORTD |= (1 << ZUMO_BUTTON); //set pull up on zumo button
 }
 
 //setup all the timers

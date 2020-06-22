@@ -217,6 +217,45 @@
     <Compile Include="twi.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="VL53L0x_api\vl53l0x_api.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="VL53L0x_api\vl53l0x_api_calibration.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="VL53L0x_api\vl53l0x_api_core.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="VL53L0x_api\vl53l0x_api_ranging.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="VL53L0x_api\vl53l0x_api_strings.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="VL53L0x_api\vl53l0x_def.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="VL53L0x_api\vl53l0x_device.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <None Include="VL53L0x_api\vl53l0x_i2c_platform.h">
+      <SubType>compile</SubType>
+    </None>
+    <Compile Include="VL53L0x_api\vl53l0x_interrupt_threshold_settings.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="VL53L0x_api\vl53l0x_platform.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="VL53L0x_api\vl53l0x_platform_log.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="VL53L0x_api\vl53l0x_tuning.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="VL53L0x_api\vl53l0x_types.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="watchdog.c">
       <SubType>compile</SubType>
     </Compile>
@@ -236,6 +275,26 @@
       <Project>{11b57d89-129b-47da-bb88-1ca9b148a4f9}</Project>
       <Private>True</Private>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="VL53L0x_api" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="VL53L0x_api\vl53l0x_api.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="VL53L0x_api\vl53l0x_api_calibration.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="VL53L0x_api\vl53l0x_api_core.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="VL53L0x_api\vl53l0x_api_ranging.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="VL53L0x_api\vl53l0x_api_strings.c">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

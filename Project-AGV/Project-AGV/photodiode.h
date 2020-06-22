@@ -16,9 +16,9 @@
 #include "pins.h"
 #include "watchdog.h"
 
-#define ADC_MEASURE_TIMES 10
-#define MAX_SENSORS 6
-#define ADC_MEASURE_OFFSET 10
+#define ADC_MEASURE_TIMES 10			//How many measurements need to be taken to get an average
+#define MAX_SENSORS 6					//amount of sensors that can be read
+#define ADC_MEASURE_OFFSET 10			//Max deviation off measurement data
 
 //Default calibration data
 #define WHITE_CAL0	0x3Ff
@@ -40,6 +40,7 @@ uint16_t getPhotodiodeData(uint8_t sensor, uint8_t lightMode);
 void getAvgPhotodiodeData(uint16_t *data);
 void calibrateBlue(void);
 void calibrateWhite(void);
+void photoDiff(void);
 uint8_t sensorStatus(uint8_t sensor);
 
 #endif /* PHOTODIODE_H_ */
