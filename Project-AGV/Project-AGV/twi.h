@@ -60,7 +60,7 @@
 #define ASM_NOP_TIMES				2	//Amount of clock cycles it should wait between sending data
 
 #ifndef MAX_BUFFER_LENGTH				//Max buffer length for sending and receiving data
-	#define MAX_BUFFER_LENGTH		10
+	#define MAX_BUFFER_LENGTH		46
 #endif
 
 void initTwi(void);
