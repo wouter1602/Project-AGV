@@ -21,7 +21,7 @@ void initWatchdog(void) {
 }
 
 /*
- * Start watchdog and sets pinter int as value for the watchdog to trigger.
+ * Start watchdog and sets address where addrs points to as value for the watchdog to trigger.
  * If the watchdog is already started will return 1.
  * If the watchdog is started will return 0.
  */
