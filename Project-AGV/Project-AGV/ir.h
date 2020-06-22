@@ -10,7 +10,7 @@
 #define IR_H_
 
 #include <avr/io.h>
-#include <avr/delay.h>
+#include <util/delay.h>
 #include <stdio.h>
 
 #include "pins.h"

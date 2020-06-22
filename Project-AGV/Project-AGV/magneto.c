@@ -7,17 +7,20 @@
 
 #include "magneto.h"
 
-/*
- * Static struct that stores vector value's for calibration.
- */
-static struct Vector {
-	int16_t maxX;
-	int16_t maxY;
-	int16_t maxZ;
-	int16_t minX;
-	int16_t minY;
-	int16_t minZ;
-}magnetoVectors;
+static struct Vector3 {
+	int32_t x;
+	int32_t y;
+	int32_t z;
+};
+typedef struct Vector3 Vector3;
+
+static struct MagnetoVector {
+	Vector3 max;
+	Vector3 min;
+};
+typedef struct MagnetoVector MagnetoVector;
+
+MagnetoVector magnetoVectors;
 
 /*
  * Gets magneto data for the X-axes
@@ -28,8 +31,8 @@ static int16_t getMagnetoDataX(void) {
 	uint8_t twiData[3] ={MAGNETO_ADDR, (OUT_X_L_M | (1 << 7)), (MAGNETO_ADDR | 1)};
 
 	
-	twiReadRS(twiData, 2, 3);					//Read X-axes magneto sensor
-	data = (twiData[1] << 8) | twiData[2];		//Combine two 8-bit values to one 16-bit value
+	twiReadRS(twiData, 2, 3);               //Read Z-axes magneto sensor
+	data = (twiData[2] << 8) | twiData[1];  //Combine two 8-bit values to one 16-bit value
 	return data;
 }
 
@@ -44,6 +47,49 @@ static int16_t getMagnetoDataY(void) {
 	twiReadRS(twiData, 2, 3);				//Read Y-axes magneto sensor
 	data = (twiData[2] << 8) | twiData[1];	//Combine two 8-bit values to one 16-bit value
 	return data;
+}
+
+/*
+ * Gets magneto data for the Y-axes
+ * returns signed 16-bit value from the sensor.
+ */
+static int16_t getMagnetoDataZ(void) {
+	int16_t data = 0;
+	uint8_t twiData[3] = {MAGNETO_ADDR, (OUT_Z_L_M | (1 << 7)), (MAGNETO_ADDR | 1)};
+	
+	twiReadRS(twiData, 2, 3);               //Read Z-axes magneto sensor
+	data = (twiData[2] << 8) | twiData[1];  //Combine two 8-bit values to one 16-bit value
+	return data;
+}
+
+static float getMagnetoDataXAvg(void) {
+	float data = 0;
+	for (int i = 0; i < CAL_TIMES; i++)	{
+		data += getMagnetoDataX();
+	}
+	
+	data /= CAL_TIMES;
+	return round(data);
+}
+
+static float getMagnetoDataYAvg(void) {
+	float data = 0;
+	for (int i = 0; i < CAL_TIMES; i++)	{
+		data += getMagnetoDataY();
+	}
+	
+	data /= CAL_TIMES;
+	return round(data);
+}
+
+static float getMagnetoDataZAvg(void) {
+	int32_t data = 0;
+	for (int i = 0; i < CAL_TIMES; i++)	{
+		data += getMagnetoDataZ();
+	}
+	
+	data /= CAL_TIMES;
+	return round(data);
 }
 
 /*
@@ -103,7 +149,7 @@ static int16_t getAcceleroDataZ(void) {
 }//Currently not used
 
 /*
- * Sets up the Magneto sensor through TWI (I²C).
+ * Sets up the Magneto sensor through TWI (Iï¿½C).
  * Start measurement on 50Hz whith high resolution.
  * setup default value's in the calibration array
  */
@@ -120,11 +166,10 @@ void initMagneto(void) {
 	twiWrite(data5, 3);										//Enable magnetic to continuous-conversion mode
 	twiWrite(data6, 3);
 	
-	//Put default value's in array. (measured from previous tests)
-	magnetoVectors.maxX = MAX_X;
-	magnetoVectors.maxY = MAX_Y;
-	magnetoVectors.minX = Min_X;
-	magnetoVectors.minY = MIN_Y;
+	magnetoVectors.max.x = MAX_X;
+	magnetoVectors.max.y = MAX_Y;
+	magnetoVectors.min.x = Min_X;
+	magnetoVectors.min.y = MIN_Y;
 }
 
 /*
@@ -149,7 +194,7 @@ float getAvgMagnetoDataX(void) {
 float getAvgMagnetoDataY(void) {
 	float avgY = 0.0;				//Set's the float to 0.0
 	for (int i = 0; i < MAGNETO_AVG; i++) {
-		avgY += getMagnetoDataX();	//Calculate the sum of Y-axes magneto data
+		avgY += getMagnetoDataY();
 	}
 	
 	avgY /= MAGNETO_AVG;				//Divide sum by the times measured
@@ -163,9 +208,20 @@ float getAvgMagnetoDataY(void) {
  * the array that should be send should be 2 long.
  * the first should be the magneto X-axes data the second should be the magneto Y-axes data.
  */
+float getAvgMagnetoDataZ(void) {
+	float avgZ = 0.0;
+	for (int i = 0; i < MAGNETO_AVG; i++) {
+		avgZ += getMagnetoDataZ();
+	}
+	
+	avgZ /= MAGNETO_AVG;
+	
+	return avgZ;
+}
+
 float magnetoHeading(float *data, uint16_t size) {
-	float x_scaled = 2.0*(float) (data[0] - magnetoVectors.minX) / ( magnetoVectors.maxX - magnetoVectors.minX) - 1.0;		//Scale the X-axes with the calibrated minimum and maximum.
-	float y_scaled = 2.0*(float) (data[1] - magnetoVectors.minY) / ( magnetoVectors.maxY - magnetoVectors.minY) - 1.0;		//Scale the Y-axes with the calibrated minimum and maximum.
+	float x_scaled = 2.0*(float) (data[0] - magnetoVectors.min.x) / ( magnetoVectors.max.x - magnetoVectors.min.x) - 1.0;
+	float y_scaled = 2.0*(float) (data[1] - magnetoVectors.min.y) / ( magnetoVectors.max.y - magnetoVectors.min.y) - 1.0;
 	
 	float angle = atan2(y_scaled, x_scaled) * 180 / M_PI;		//Calculate angle.
 	if (angle < 0) {
@@ -180,21 +236,25 @@ float magnetoHeading(float *data, uint16_t size) {
  * The data gets stored in an local struct for other functions to use.
  */
 void magnetoCallibrate(uint8_t sampleSize) {
-	int16_t x, y;
-	int16_t minX, minY, maxX, maxY;
+	int32_t x, y;
+	MagnetoVector vector = {0};
+	vector.max.x = -9999;
+	vector.max.y = -9999;
 	
 	setMotorL(CAL_SPEED);			//Let's the Zumo rotate so the angles of the magneto sensor change
 	setMotorR(-CAL_SPEED);
 	for (int i = 0; i < sampleSize; i++) {
-		x = getMagnetoDataX();		//Gather X-axes data
-		y = getMagnetoDataY();		//Gather Y-axes data
+		x = (int32_t) round(getMagnetoDataXAvg()); //Gather X-axes data
+		y = (int32_t) round(getMagnetoDataYAvg()); //Gather Y-axes data
 		
-		minX = min(minX, x);		//Check if the data gathered is the lowest it has seen
-		minY = min(minY, y);
+		x = getMagnetoDataX();		
+		y = getMagnetoDataY();		
+		vector.min.x = min(vector.min.x, x);
+		vector.min.y = min(vector.min.y, y);	
 		
-		maxX = max(maxX, x);		//Check if the data gathered is the highest it has seen
-		maxY = max(maxY, y);
-	
+		vector.max.x = max(vector.max.x, x); //Check if the data gathered is the lowest it has seen
+		vector.max.y = max(vector.max.y, y);
+		
 		_delay_ms(50);				//Added delay so it waits till the Zumo has rotated before getting a new sample
 	}
 	
@@ -202,10 +262,17 @@ void magnetoCallibrate(uint8_t sampleSize) {
 	setMotorR(0);
 	
 #ifdef DEBUG
-	printf("Max X=\t%d\nMax Y=\t%d\nMIN X=\t%d\nMin Y=\t%d\n", maxX, maxY, minX, minY);
+	printf("Max X=\t%d\nMax Y=\t%d\nMIN X=\t%d\nMin Y=\t%d\n",(int16_t) (vector.max.x),(int16_t) (vector.max.y),(int16_t) (vector.min.x),(int16_t) (vector.min.y));
 #endif
-	magnetoVectors.maxX = maxX;		//Puts gathered data in calibration struct.
-	magnetoVectors.maxY = maxY;
-	magnetoVectors.minX = minX;
-	magnetoVectors.minY = minY;
+	magnetoVectors.max.x = vector.max.x; //Puts gathered data in calibration struct.
+	magnetoVectors.max.y = vector.max.y;
+	magnetoVectors.min.x = vector.min.x;
+	magnetoVectors.min.y = vector.min.y;	
+}
+
+float getMagnetoHeading(void) {
+	float data[2] = {0.0};
+	data[0] = getAvgMagnetoDataX();
+	data[1] = getAvgMagnetoDataY();
+	return magnetoHeading(data, 2);
 }

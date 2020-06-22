@@ -17,6 +17,7 @@
 #include "twi.h"
 #include "hall.h"
 #include "photodiode.h"
+#include "tof.h"
 
 int main(void) {
 	DDRC |= (1 << DDC7);
@@ -25,38 +26,53 @@ int main(void) {
 	streamInit();			//enable USART over USB
 	_delay_ms(2000);		//Wait 2 sec for bootloader to finish
 	
+	usbDeviceAttach();
+	streamInit();
+	_delay_ms(2000);
+#ifdef DEBUG
 	printf("\nlet's start\n");
-	initPins();				//Set pin's as inputs or outputs for control
-	initMotor();			//Enables use of motor driver
-	//initTwi();
-	//initMagneto();
-	initPhotodiode();		//Enables use of photodiodes
-	
+#endif
+	initPins();
+	initMotor();
+	//_delay_ms(100);
+	initTwi();
+	//_delay_ms(100);
+	initMagneto();
+#ifdef DEBUG
 	printf("Done setup\n");
-	
+#endif
+
+	float avg[2] = {0};
+	int32_t testData = 0;
+	//Calibrate Zumo
 	PORTC |= (1 << PORTC7);
-	while(buttonPressed());		//Wait for button to be pressed
+	while(buttonPressed());		//wait for button pressed
+	_delay_ms(5);
 	PORTC &= ~(1 << PORTC7);
-	_delay_ms(200);
-	calibrateWhite();			//Stores photodiode values in white calibration array
+	magnetoCallibrate(60);
 	
-	PORTC |= (1 << PORTC7);
-	while (buttonPressed());	//wait for button to be pressed
+	
+	//start Zumo	
+	PORTC|= (1 << PORTC7);
+	while(buttonPressed());		//wait for button pressed
+	_delay_ms(5);
 	PORTC &= ~(1 << PORTC7);
-	_delay_ms(200);
-	calibrateBlue();			//Stores photodiode values in blue calibration array
+	setHeading();
 	
-	photoDiff();				//Show diffrence between white values and blue values
-	
-	PORTC |= (1 << PORTC7);
-	while (buttonPressed());	//wait for button to be pressed
-	PORTC &= ~(1 << PORTC7);
-	_delay_ms(100);
+	turnR(90);
 	
     while (1) {
-		PORTC ^= (1 << PORTC7);
-		printf("0: %d\t1: %d\t2: %d\t3: %d\t4: %d\t5: %d\n", sensorStatus(0), sensorStatus(1), sensorStatus(2), sensorStatus(3), sensorStatus(4), sensorStatus(5));
-		//show sensor value on loop for debugging.
+		turn(180);
 		_delay_ms(100);
+		turn(-180);
+		_delay_ms(100);
+		//navigate();
+		
+		//float x = getAvgMagnetoDataX();
+		//float y = getAvgMagnetoDataY();
+		//float heading = getMagnetoHeading();
+		//printf("{%d/100.0,%d/100.0}, ", (int16_t) (x * 100), (int16_t) (y * 100));
+		//printf("Heading: %d\n", (int16_t)heading);
+		//printf("x: %d\ty: %d\tz: %d\n", (int16_t) getAvgMagnetoDataX(), (int16_t) getAvgMagnetoDataY(), (int16_t) getAvgMagnetoDataZ());
     }
 }

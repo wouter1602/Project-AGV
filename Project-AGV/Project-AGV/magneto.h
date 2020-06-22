@@ -424,6 +424,8 @@
 #define CAL_SPEED 350
 #endif
 
+#define CAL_TIMES 5
+
 //Calibration data
 #define MAX_X -1898
 #define Min_X -3415
@@ -434,6 +436,8 @@ void initMagneto(void);
 void magnetoCallibrate(uint8_t sampleSize);
 float getAvgMagnetoDataX(void);
 float getAvgMagnetoDataY(void);
+float getAvgMagnetoDataZ(void);
 float magnetoHeading(float *data, uint16_t size);
+float getMagnetoHeading(void);
 
 #endif /* MAGNETO_H_ */
