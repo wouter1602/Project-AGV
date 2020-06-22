@@ -21,42 +21,42 @@
 int main(void) {
 	DDRC |= (1 << DDC7);
 	sei();
-	
-	usbDeviceAttach();
-	streamInit();
-	_delay_ms(2000);
+	usbDeviceAttach();		//setup bootloader
+	streamInit();			//enable USART over USB
+	_delay_ms(2000);		//Wait 2 sec for bootloader to finish
 	
 	printf("\nlet's start\n");
-	initPins();
-	initMotor();
+	initPins();				//Set pin's as inputs or outputs for control
+	initMotor();			//Enables use of motor driver
 	//initTwi();
 	//initMagneto();
-	initPhotodiode();
+	initPhotodiode();		//Enables use of photodiodes
 	
 	printf("Done setup\n");
 	
 	PORTC |= (1 << PORTC7);
-	while(buttonPressed());
+	while(buttonPressed());		//Wait for button to be pressed
 	PORTC &= ~(1 << PORTC7);
 	_delay_ms(200);
-	calibrateWhite();
+	calibrateWhite();			//Stores photodiode values in white calibration array
 	
 	PORTC |= (1 << PORTC7);
-	while (buttonPressed());
+	while (buttonPressed());	//wait for button to be pressed
 	PORTC &= ~(1 << PORTC7);
 	_delay_ms(200);
-	calibrateBlue();
+	calibrateBlue();			//Stores photodiode values in blue calibration array
 	
-	photoDiff();
+	photoDiff();				//Show diffrence between white values and blue values
 	
 	PORTC |= (1 << PORTC7);
-	while (buttonPressed());
+	while (buttonPressed());	//wait for button to be pressed
 	PORTC &= ~(1 << PORTC7);
 	_delay_ms(100);
 	
     while (1) {
 		PORTC ^= (1 << PORTC7);
 		printf("0: %d\t1: %d\t2: %d\t3: %d\t4: %d\t5: %d\n", sensorStatus(0), sensorStatus(1), sensorStatus(2), sensorStatus(3), sensorStatus(4), sensorStatus(5));
+		//show sensor value on loop for debugging.
 		_delay_ms(100);
     }
 }
