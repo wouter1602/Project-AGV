@@ -32,7 +32,7 @@ int main(void) {
 	initMotor();
 	initTwi();
 	initMagneto();
-	initPhotodiode();
+	//initPhotodiode();
 #ifdef DEBUG
 	printf("Done setup\n");
 #endif
@@ -55,24 +55,6 @@ int main(void) {
 	setHeading();
 	
 	turnR(90);
-	
-	
-	PORTC |= (1 << PORTC7);
-	while(buttonPressed());
-	PORTC &= ~(1 << PORTC7);
-	_delay_ms(100);
-	calibrateWhite();
-	
-	PORTC |= (1 << PORTC7);
-	while (buttonPressed());
-	PORTC &= ~(1 << PORTC7);
-	_delay_ms(100);
-	calibrateBlue();
-	
-	PORTC |= (1 << PORTC7);
-	while (buttonPressed());
-	PORTC &= ~(1 << PORTC7);
-	_delay_ms(100);
 	
     while (1) {
 		turn(180);

@@ -29,8 +29,6 @@ void drive(int16_t speed);
 void turnR(int16_t degrees);
 void turnL(int16_t degrees);
 void turn(int16_t degrees);
-void turn90R(void);
-void turn90L(void);
 void stopMotorL(void);
 void stopMotorR(void);
 void stopAllMotors(void);
