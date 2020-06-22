@@ -15,35 +15,48 @@
 #include "motor.h"
 #include "magneto.h"
 #include "twi.h"
+#include "hall.h"
+#include "photodiode.h"
 
 int main(void) {
 	DDRC |= (1 << DDC7);
 	sei();
-	
-	usbDeviceAttach();
-	streamInit();
-	_delay_ms(2000);
+	usbDeviceAttach();		//setup bootloader
+	streamInit();			//enable USART over USB
+	_delay_ms(2000);		//Wait 2 sec for bootloader to finish
 	
 	printf("\nlet's start\n");
-	initMotor();
-	//_delay_ms(100);
-	initTwi();
-	//_delay_ms(100);
-	initMagneto();
+	initPins();				//Set pin's as inputs or outputs for control
+	initMotor();			//Enables use of motor driver
+	//initTwi();
+	//initMagneto();
+	initPhotodiode();		//Enables use of photodiodes
+	
 	printf("Done setup\n");
-
-	float avg[2] = {0};
-	int32_t testData = 0;
-	magnetoCallibrate(60);
+	
+	PORTC |= (1 << PORTC7);
+	while(buttonPressed());		//Wait for button to be pressed
+	PORTC &= ~(1 << PORTC7);
+	_delay_ms(200);
+	calibrateWhite();			//Stores photodiode values in white calibration array
+	
+	PORTC |= (1 << PORTC7);
+	while (buttonPressed());	//wait for button to be pressed
+	PORTC &= ~(1 << PORTC7);
+	_delay_ms(200);
+	calibrateBlue();			//Stores photodiode values in blue calibration array
+	
+	photoDiff();				//Show diffrence between white values and blue values
+	
+	PORTC |= (1 << PORTC7);
+	while (buttonPressed());	//wait for button to be pressed
+	PORTC &= ~(1 << PORTC7);
+	_delay_ms(100);
+	
     while (1) {
-		avg[0] = getAvgMagnetoDataX();
-		avg[1] = getAvgMagnetoDataY();
-		
-		testData = 100 * magnetoHeading(avg, 2);
-		
-        _delay_ms(20);
-		printf("Angel: %d\n", testData);
 		PORTC ^= (1 << PORTC7);
-		_delay_ms(500);
+		printf("0: %d\t1: %d\t2: %d\t3: %d\t4: %d\t5: %d\n", sensorStatus(0), sensorStatus(1), sensorStatus(2), sensorStatus(3), sensorStatus(4), sensorStatus(5));
+		//show sensor value on loop for debugging.
+		_delay_ms(100);
     }
 }

@@ -9,9 +9,9 @@
 #define	WATCHDOG_H
 
 #include <avr/io.h>
-#include <util/delay.h>
 #include <avr/interrupt.h>
-#include <stdio.h>
+
+#include <stdio.h>		//Only needed for printf debugging
 
 void initWatchdog(void);
 

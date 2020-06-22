@@ -17,6 +17,11 @@
 #define M1PWM 5 //PB5
 #define M2PWM 6 //PB6
 
+#define ZUMO_BUTTON 6 //PD6 (D12)
+#define PHOTOLIGHT 1  //PD1	(D2)
+
 void initPins(void);
+
+uint8_t buttonPressed(void);
 
 #endif /* PINS_H_ */
