@@ -217,16 +217,16 @@
     <Compile Include="twi.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="ultrasoon.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="ultrasoon.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="watchdog.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="watchdog.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ultrasoon.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ultrasoon.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
