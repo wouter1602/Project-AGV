@@ -113,39 +113,19 @@ void turnL(int16_t degrees) {
 void turn(int16_t degrees) {
 	int16_t curPos = getMagnetoHeading();
 	
-	/*
-	int16_t relativeHeading = curPos - degrees;
-
-	// constrain to -180 to 180 degree range
-	if (relativeHeading > 180)
-	relativeHeading -= 360;
-	if (relativeHeading < -180)
-	relativeHeading += 360;*/
-	
 	int16_t absDegrees = curPos + degrees;
-	while(absDegrees < 0) {
-		absDegrees += 360;
-	}
-	while(absDegrees > 360) {
-		absDegrees -= 360;
-	}
 	
-	if (absDegrees < curPos) {
+	absDegrees = absDegrees % 361;
+	if ((curPos - absDegrees) < 0) {
+		//turn left
 		turnL(absDegrees);
+	} else if ((curPos - absDegrees) == 0) {
+		//No need to turn
+		return;
 	} else {
+		//turn right.
 		turnR(absDegrees);
 	}
-	
-}
-
-//turn 90 degrees right
-void turn90R(void) {
-	turnR(NINTEY_DEGREES);
-}
-
-//turn 90 degrees left
-void turn90L(void) {
-	turnL(NINTEY_DEGREES);
 }
 
 void stopMotorR(void) {

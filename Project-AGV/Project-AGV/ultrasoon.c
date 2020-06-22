@@ -12,5 +12,5 @@ void initUltrasoon(void) {
 }
 
 uint8_t getUltrasoonData(uint8_t sensor) {
-	
+	return 0;
 }
