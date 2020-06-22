@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=../magneto.c ../main.c ../Motor.c ../pins.c ../twi.c ../watchdog.c
+SOURCEFILES_QUOTED_IF_SPACED=../magneto.c ../main.c ../Motor.c ../pins.c ../twi.c ../watchdog.c ../ir.c ../tof.c ../ultrasoon.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1472/magneto.o ${OBJECTDIR}/_ext/1472/main.o ${OBJECTDIR}/_ext/1472/Motor.o ${OBJECTDIR}/_ext/1472/pins.o ${OBJECTDIR}/_ext/1472/twi.o ${OBJECTDIR}/_ext/1472/watchdog.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1472/magneto.o.d ${OBJECTDIR}/_ext/1472/main.o.d ${OBJECTDIR}/_ext/1472/Motor.o.d ${OBJECTDIR}/_ext/1472/pins.o.d ${OBJECTDIR}/_ext/1472/twi.o.d ${OBJECTDIR}/_ext/1472/watchdog.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1472/magneto.o ${OBJECTDIR}/_ext/1472/main.o ${OBJECTDIR}/_ext/1472/Motor.o ${OBJECTDIR}/_ext/1472/pins.o ${OBJECTDIR}/_ext/1472/twi.o ${OBJECTDIR}/_ext/1472/watchdog.o ${OBJECTDIR}/_ext/1472/ir.o ${OBJECTDIR}/_ext/1472/tof.o ${OBJECTDIR}/_ext/1472/ultrasoon.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1472/magneto.o.d ${OBJECTDIR}/_ext/1472/main.o.d ${OBJECTDIR}/_ext/1472/Motor.o.d ${OBJECTDIR}/_ext/1472/pins.o.d ${OBJECTDIR}/_ext/1472/twi.o.d ${OBJECTDIR}/_ext/1472/watchdog.o.d ${OBJECTDIR}/_ext/1472/ir.o.d ${OBJECTDIR}/_ext/1472/tof.o.d ${OBJECTDIR}/_ext/1472/ultrasoon.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/1472/magneto.o ${OBJECTDIR}/_ext/1472/main.o ${OBJECTDIR}/_ext/1472/Motor.o ${OBJECTDIR}/_ext/1472/pins.o ${OBJECTDIR}/_ext/1472/twi.o ${OBJECTDIR}/_ext/1472/watchdog.o
+OBJECTFILES=${OBJECTDIR}/_ext/1472/magneto.o ${OBJECTDIR}/_ext/1472/main.o ${OBJECTDIR}/_ext/1472/Motor.o ${OBJECTDIR}/_ext/1472/pins.o ${OBJECTDIR}/_ext/1472/twi.o ${OBJECTDIR}/_ext/1472/watchdog.o ${OBJECTDIR}/_ext/1472/ir.o ${OBJECTDIR}/_ext/1472/tof.o ${OBJECTDIR}/_ext/1472/ultrasoon.o
 
 # Source Files
-SOURCEFILES=../magneto.c ../main.c ../Motor.c ../pins.c ../twi.c ../watchdog.c
+SOURCEFILES=../magneto.c ../main.c ../Motor.c ../pins.c ../twi.c ../watchdog.c ../ir.c ../tof.c ../ultrasoon.c
 
 # Pack Options 
 PACK_COMPILER_OPTIONS=-I "${DFP_DIR}/include"
@@ -146,6 +146,24 @@ ${OBJECTDIR}/_ext/1472/watchdog.o: ../watchdog.c  nbproject/Makefile-${CND_CONF}
 	@${RM} ${OBJECTDIR}/_ext/1472/watchdog.o 
 	 ${MP_CC}  $(MP_EXTRA_CC_PRE) -mmcu=atmega32u4  -I "C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.4.351/include" -I "../Thirdparty/Leonardo_AVRC/leonardoe_usb_driver" -B "C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.4.351/gcc/dev/atmega32u4" -g -DDEBUG  -gdwarf-2  -x c -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -Os -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -DF_CPU=16000000 -DNDEBUG  -I "../Thirdparty/Leonardo_AVRC/leonardoe_usb_driver" -Wall -MD -MP -MF "${OBJECTDIR}/_ext/1472/watchdog.o.d" -MT "${OBJECTDIR}/_ext/1472/watchdog.o.d" -MT ${OBJECTDIR}/_ext/1472/watchdog.o  -o ${OBJECTDIR}/_ext/1472/watchdog.o ../watchdog.c  -DXPRJ_Release=$(CND_CONF)  $(COMPARISON_BUILD)  -O2
 	
+${OBJECTDIR}/_ext/1472/ir.o: ../ir.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
+	@${RM} ${OBJECTDIR}/_ext/1472/ir.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1472/ir.o 
+	 ${MP_CC}  $(MP_EXTRA_CC_PRE) -mmcu=atmega32u4  -I "C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.4.351/include" -I "../Thirdparty/Leonardo_AVRC/leonardoe_usb_driver" -B "C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.4.351/gcc/dev/atmega32u4" -g -DDEBUG  -gdwarf-2  -x c -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -Os -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -DF_CPU=16000000 -DNDEBUG  -I "../Thirdparty/Leonardo_AVRC/leonardoe_usb_driver" -Wall -MD -MP -MF "${OBJECTDIR}/_ext/1472/ir.o.d" -MT "${OBJECTDIR}/_ext/1472/ir.o.d" -MT ${OBJECTDIR}/_ext/1472/ir.o  -o ${OBJECTDIR}/_ext/1472/ir.o ../ir.c  -DXPRJ_Release=$(CND_CONF)  $(COMPARISON_BUILD)  -O2
+	
+${OBJECTDIR}/_ext/1472/tof.o: ../tof.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
+	@${RM} ${OBJECTDIR}/_ext/1472/tof.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1472/tof.o 
+	 ${MP_CC}  $(MP_EXTRA_CC_PRE) -mmcu=atmega32u4  -I "C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.4.351/include" -I "../Thirdparty/Leonardo_AVRC/leonardoe_usb_driver" -B "C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.4.351/gcc/dev/atmega32u4" -g -DDEBUG  -gdwarf-2  -x c -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -Os -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -DF_CPU=16000000 -DNDEBUG  -I "../Thirdparty/Leonardo_AVRC/leonardoe_usb_driver" -Wall -MD -MP -MF "${OBJECTDIR}/_ext/1472/tof.o.d" -MT "${OBJECTDIR}/_ext/1472/tof.o.d" -MT ${OBJECTDIR}/_ext/1472/tof.o  -o ${OBJECTDIR}/_ext/1472/tof.o ../tof.c  -DXPRJ_Release=$(CND_CONF)  $(COMPARISON_BUILD)  -O2
+	
+${OBJECTDIR}/_ext/1472/ultrasoon.o: ../ultrasoon.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
+	@${RM} ${OBJECTDIR}/_ext/1472/ultrasoon.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1472/ultrasoon.o 
+	 ${MP_CC}  $(MP_EXTRA_CC_PRE) -mmcu=atmega32u4  -I "C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.4.351/include" -I "../Thirdparty/Leonardo_AVRC/leonardoe_usb_driver" -B "C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.4.351/gcc/dev/atmega32u4" -g -DDEBUG  -gdwarf-2  -x c -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -Os -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -DF_CPU=16000000 -DNDEBUG  -I "../Thirdparty/Leonardo_AVRC/leonardoe_usb_driver" -Wall -MD -MP -MF "${OBJECTDIR}/_ext/1472/ultrasoon.o.d" -MT "${OBJECTDIR}/_ext/1472/ultrasoon.o.d" -MT ${OBJECTDIR}/_ext/1472/ultrasoon.o  -o ${OBJECTDIR}/_ext/1472/ultrasoon.o ../ultrasoon.c  -DXPRJ_Release=$(CND_CONF)  $(COMPARISON_BUILD)  -O2
+	
 else
 ${OBJECTDIR}/_ext/1472/magneto.o: ../magneto.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
@@ -182,6 +200,24 @@ ${OBJECTDIR}/_ext/1472/watchdog.o: ../watchdog.c  nbproject/Makefile-${CND_CONF}
 	@${RM} ${OBJECTDIR}/_ext/1472/watchdog.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1472/watchdog.o 
 	 ${MP_CC}  $(MP_EXTRA_CC_PRE) -mmcu=atmega32u4  -I "C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.4.351/include" -I "../Thirdparty/Leonardo_AVRC/leonardoe_usb_driver" -B "C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.4.351/gcc/dev/atmega32u4"  -x c -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -Os -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -DF_CPU=16000000 -DNDEBUG  -I "../Thirdparty/Leonardo_AVRC/leonardoe_usb_driver" -Wall -MD -MP -MF "${OBJECTDIR}/_ext/1472/watchdog.o.d" -MT "${OBJECTDIR}/_ext/1472/watchdog.o.d" -MT ${OBJECTDIR}/_ext/1472/watchdog.o  -o ${OBJECTDIR}/_ext/1472/watchdog.o ../watchdog.c  -DXPRJ_Release=$(CND_CONF)  $(COMPARISON_BUILD)  -O2
+	
+${OBJECTDIR}/_ext/1472/ir.o: ../ir.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
+	@${RM} ${OBJECTDIR}/_ext/1472/ir.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1472/ir.o 
+	 ${MP_CC}  $(MP_EXTRA_CC_PRE) -mmcu=atmega32u4  -I "C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.4.351/include" -I "../Thirdparty/Leonardo_AVRC/leonardoe_usb_driver" -B "C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.4.351/gcc/dev/atmega32u4"  -x c -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -Os -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -DF_CPU=16000000 -DNDEBUG  -I "../Thirdparty/Leonardo_AVRC/leonardoe_usb_driver" -Wall -MD -MP -MF "${OBJECTDIR}/_ext/1472/ir.o.d" -MT "${OBJECTDIR}/_ext/1472/ir.o.d" -MT ${OBJECTDIR}/_ext/1472/ir.o  -o ${OBJECTDIR}/_ext/1472/ir.o ../ir.c  -DXPRJ_Release=$(CND_CONF)  $(COMPARISON_BUILD)  -O2
+	
+${OBJECTDIR}/_ext/1472/tof.o: ../tof.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
+	@${RM} ${OBJECTDIR}/_ext/1472/tof.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1472/tof.o 
+	 ${MP_CC}  $(MP_EXTRA_CC_PRE) -mmcu=atmega32u4  -I "C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.4.351/include" -I "../Thirdparty/Leonardo_AVRC/leonardoe_usb_driver" -B "C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.4.351/gcc/dev/atmega32u4"  -x c -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -Os -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -DF_CPU=16000000 -DNDEBUG  -I "../Thirdparty/Leonardo_AVRC/leonardoe_usb_driver" -Wall -MD -MP -MF "${OBJECTDIR}/_ext/1472/tof.o.d" -MT "${OBJECTDIR}/_ext/1472/tof.o.d" -MT ${OBJECTDIR}/_ext/1472/tof.o  -o ${OBJECTDIR}/_ext/1472/tof.o ../tof.c  -DXPRJ_Release=$(CND_CONF)  $(COMPARISON_BUILD)  -O2
+	
+${OBJECTDIR}/_ext/1472/ultrasoon.o: ../ultrasoon.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
+	@${RM} ${OBJECTDIR}/_ext/1472/ultrasoon.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1472/ultrasoon.o 
+	 ${MP_CC}  $(MP_EXTRA_CC_PRE) -mmcu=atmega32u4  -I "C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.4.351/include" -I "../Thirdparty/Leonardo_AVRC/leonardoe_usb_driver" -B "C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.4.351/gcc/dev/atmega32u4"  -x c -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -Os -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -DF_CPU=16000000 -DNDEBUG  -I "../Thirdparty/Leonardo_AVRC/leonardoe_usb_driver" -Wall -MD -MP -MF "${OBJECTDIR}/_ext/1472/ultrasoon.o.d" -MT "${OBJECTDIR}/_ext/1472/ultrasoon.o.d" -MT ${OBJECTDIR}/_ext/1472/ultrasoon.o  -o ${OBJECTDIR}/_ext/1472/ultrasoon.o ../ultrasoon.c  -DXPRJ_Release=$(CND_CONF)  $(COMPARISON_BUILD)  -O2
 	
 endif
 

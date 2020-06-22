@@ -17,6 +17,7 @@
 
 #include "watchdog.h"
 
+/* Status codes taken out of datasheet*/
 // General TWI Master status codes
 #define TWI_START                  0x08  // START has been transmitted
 #define TWI_REP_START              0x10  // Repeated START has been transmitted
@@ -56,9 +57,9 @@
 #define TWI_NO_STATE               0xF8  // No relevant state information available; TWINT = �0�
 #define TWI_BUS_ERROR              0x00  // Bus error due to an illegal START or STOP condition
 
-#define ASM_NOP_TIMES				2
+#define ASM_NOP_TIMES				2	//Amount of clock cycles it should wait between sending data
 
-#ifndef MAX_BUFFER_LENGTH
+#ifndef MAX_BUFFER_LENGTH				//Max buffer length for sending and receiving data
 	#define MAX_BUFFER_LENGTH		10
 #endif
 

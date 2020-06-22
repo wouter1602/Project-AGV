@@ -17,83 +17,41 @@
 #include "twi.h"
 #include "hall.h"
 #include "photodiode.h"
+#include "tof.h"
 
 int main(void) {
 	DDRC |= (1 << DDC7);
 	sei();
-	
-	usbDeviceAttach();
-	streamInit();
-	_delay_ms(2000);
-	
+	usbDeviceAttach();		//setup bootloader
+	streamInit();			//enable USART over USB
+	_delay_ms(2000);		//Wait 2 sec for bootloader to finish
+
+#ifdef DEBUG
 	printf("\nlet's start\n");
+#endif
+	initPins();
 	initMotor();
-	//_delay_ms(100);
 	initTwi();
-	//_delay_ms(100);
 	initMagneto();
+#ifdef DEBUG
 	printf("Done setup\n");
-
-	float avg[2] = {0};
-	int32_t testData = 0;
-	magnetoCallibrate(60);
+#endif
+	//Calibrate Zumo
+	PORTC |= (1 << PORTC7);
+	while(buttonPressed());		//wait for button pressed
+	_delay_ms(5);
+	PORTC &= ~(1 << PORTC7);
+	magnetoCallibrate(60);		//Calibrate Zumo Magneto sensor
+	
+	
+	//start Zumo	
+	PORTC|= (1 << PORTC7);
+	while(buttonPressed());		//wait for button pressed
+	_delay_ms(5);
+	PORTC &= ~(1 << PORTC7);
+	
     while (1) {
-		avg[0] = getAvgMagnetoDataX();
-		avg[1] = getAvgMagnetoDataY();
-		
-		testData = 100 * magnetoHeading(avg, 2);
-		
-        _delay_ms(20);
-		printf("Angel: %d\n", testData);
-		PORTC ^= (1 << PORTC7);
-		_delay_ms(500);
-		/*
-		setMotorR(0x7F);
-		PORTC |= (1 << PORTC7);
-		_delay_ms(500);
-		setMotorR(0);
-		_delay_ms(500);
-		setMotorR(-0x7F);
-		PORTC &= ~(1 << PORTC7);
-		_delay_ms(500);
-		setMotorR(0);
-		_delay_ms(500);
-		*/
-
-		drive(0x7F);
-		PORTC |= (1 << PORTC7);
-		_delay_ms(500);
-		drive(0);
-		_delay_ms(500);
-		drive(-0x7F);
-		PORTC &= ~(1 << PORTC7);
-		_delay_ms(500);
-		drive(0);
-		_delay_ms(500);
-		printf("Test\n");
-
-		turnL(0x7F);
-		_delay_ms(500);
-		turnL(-0x7F);
-		_delay_ms(500);
-
-		turnR(0x7F);
-		_delay_ms(500);
-		turnR(-0x7F);
-		_delay_ms(500);
-		
-
-		/*
-		setMotorL(0x7F);
-		PORTC |= (1 << PORTC7);
-		_delay_ms(500);
-		setMotorL(0);
-		_delay_ms(500);
-		setMotorL(-0x7F);
-		PORTC &= ~(1 << PORTC7);
-		_delay_ms(500);
-		setMotorL(0);
-		_delay_ms(500);
-		*/
+		printf("Current heading:\t%d\n", (int32_t) round(getMagnetoHeading()));		//Prints out current heading for debugging
+		_delay_ms(1000);
     }
 }
