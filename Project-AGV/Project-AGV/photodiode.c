@@ -117,14 +117,22 @@ void getAvgPhotodiodeData(uint16_t *data) {
 void calibrateBlue(void) {
 	getAvgPhotodiodeData(blueData);
 #ifdef DEBUG
-	printf("Blue data:\n0: 0x%x\t1: 0x%x\t2: 0x%x\t3: 0x%x\t4: 0x%x\t5: 0x%x\n", blueData[0], blueData[1], blueData[2], blueData[3], blueData[4], blueData[5]);	
+	//printf("Black data:\n0: 0x%x\t1: 0x%x\t2: 0x%x\t3: 0x%x\t4: 0x%x\t5: 0x%x\n", blueData[0], blueData[1], blueData[2], blueData[3], blueData[4], blueData[5]);
+	printf("Blue data:\n|\t0: %d\t|\t1: %d\t|\t2: %d\t|\t3: %d\t|\t4: %d\t|\t5: %d\n", blueData[0], blueData[1], blueData[2], blueData[3], blueData[4], blueData[5]);	
 #endif
 }
 
 void calibrateWhite(void) {
 	getAvgPhotodiodeData(whiteData);
 #ifdef DEBUG
-	printf("White data:\n0: 0x%x\t1: 0x%x\t2: 0x%x\t3: 0x%x\t4: 0x%x\t5: 0x%x\n", whiteData[0], whiteData[1], whiteData[2], whiteData[3], whiteData[4], whiteData[5]);
+	//printf("White data:\n0: 0x%x\t1: 0x%x\t2: 0x%x\t3: 0x%x\t4: 0x%x\t5: 0x%x\n", whiteData[0], whiteData[1], whiteData[2], whiteData[3], whiteData[4], whiteData[5]);
+	printf("White data:\n|\t0: %d\t|\t1: %d\t|\t2: %d\t|\t3: %d\t|\t4: %d\t|\t5: %d\n", whiteData[0], whiteData[1], whiteData[2], whiteData[3], whiteData[4], whiteData[5]);
+#endif
+}
+
+void photoDiff(void) {
+#ifdef DEBUG
+	printf("Diff data:\n|\t0: %d\t|\t1: %d\t|\t2: %d\t|\t3: %d\t|\t4: %d\t|\t5: %d\n", ((int16_t) whiteData[0] - (int16_t) blueData[0]), ((int16_t) whiteData[1] - (int16_t) blueData[1]), ((int16_t) whiteData[2] - (int16_t) blueData[2]), ((int16_t) whiteData[3] - (int16_t) blueData[3]), ((int16_t) whiteData[4] - (int16_t) blueData[4]), ((int16_t) whiteData[5] - (int16_t) blueData[5]));
 #endif
 }
 

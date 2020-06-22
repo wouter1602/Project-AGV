@@ -40,6 +40,7 @@ uint16_t getPhotodiodeData(uint8_t sensor, uint8_t lightMode);
 void getAvgPhotodiodeData(uint16_t *data);
 void calibrateBlue(void);
 void calibrateWhite(void);
+void photoDiff(void);
 uint8_t sensorStatus(uint8_t sensor);
 
 #endif /* PHOTODIODE_H_ */

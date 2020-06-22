@@ -38,14 +38,16 @@ int main(void) {
 	PORTC |= (1 << PORTC7);
 	while(buttonPressed());
 	PORTC &= ~(1 << PORTC7);
-	_delay_ms(100);
+	_delay_ms(200);
 	calibrateWhite();
 	
 	PORTC |= (1 << PORTC7);
 	while (buttonPressed());
 	PORTC &= ~(1 << PORTC7);
-	_delay_ms(100);
+	_delay_ms(200);
 	calibrateBlue();
+	
+	photoDiff();
 	
 	PORTC |= (1 << PORTC7);
 	while (buttonPressed());
