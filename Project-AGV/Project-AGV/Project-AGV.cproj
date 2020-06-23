@@ -29,16 +29,16 @@
     <eraseonlaunchrule>0</eraseonlaunchrule>
     <EraseKey />
     <AsfFrameworkConfig>
-      <framework-data xmlns="">
-        <options />
-        <configurations />
-        <files />
-        <documentation help="" />
-        <offline-documentation help="" />
-        <dependencies>
-          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.48.0" />
-        </dependencies>
-      </framework-data>
+      <framework-data>
+  <options />
+  <configurations />
+  <files />
+  <documentation help="" />
+  <offline-documentation help="" />
+  <dependencies>
+    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.39.0" />
+  </dependencies>
+</framework-data>
     </AsfFrameworkConfig>
     <avrtool>com.atmel.avrdbg.tool.snap</avrtool>
     <avrtoolserialnumber>BUR184672033</avrtoolserialnumber>
@@ -242,9 +242,6 @@
       <SubType>compile</SubType>
     </Compile>
     <None Include="Thirdparty\VL53L0x_api\vl53l0x_i2c_platform.h">
-      <SubType>compile</SubType>
-    </None>
-    <None Include="Thirdparty\VL53L0x_api\vl53l0x_i2c_win_serial_comms.c">
       <SubType>compile</SubType>
     </None>
     <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_interrupt_threshold_settings.h">

@@ -38,6 +38,7 @@ int main(void) {
 #ifdef DEBUG
 	printf("Done setup\n");
 #endif
+	getTofData(0);
 	//Calibrate Zumo
 	PORTC |= (1 << PORTC7);
 	while(buttonPressed());		//wait for button pressed
@@ -53,7 +54,7 @@ int main(void) {
 	PORTC &= ~(1 << PORTC7);
 	
     while (1) {
-		printf("Current heading:\t%d\n", (int32_t) round(getMagnetoHeading()));		//Prints out current heading for debugging
+		//printf("Current heading:\t%d\n", (int32_t) round(getMagnetoHeading()));		//Prints out current heading for debugging
 		_delay_ms(1000);
     }
 }

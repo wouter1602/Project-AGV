@@ -16,6 +16,7 @@
 #include "pins.h"
 #include "twi.h"
 #include "Thirdparty/VL53L0x_api/vl53l0x_api.h"
+#include "Thirdparty/VL53L0x_api/vl53l0x_api_calibration.h"
 
 #define TOF_ADDRS 0xFF //?
 /*
@@ -179,36 +180,7 @@ enum regAddr{
 */
 //Can't have static definse in .h file in C
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void initTof(void);
+uint16_t getTofData(uint8_t sensor);
 
 #endif /* TOF_H_ */
