@@ -205,78 +205,9 @@
     <Compile Include="pins.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_api.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_api.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_api_calibration.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_api_calibration.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_api_core.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_api_core.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_api_ranging.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_api_ranging.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_api_strings.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_api_strings.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_def.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_device.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <None Include="Thirdparty\VL53L0x_api\vl53l0x_i2c_platform.h">
+    <None Include="tof.c">
       <SubType>compile</SubType>
     </None>
-    <None Include="Thirdparty\VL53L0x_api\vl53l0x_i2c_win_serial_comms.c">
-      <SubType>compile</SubType>
-    </None>
-    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_interrupt_threshold_settings.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_platform.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_platform.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <None Include="Thirdparty\VL53L0x_api\vl53l0x_platform_log.c">
-      <SubType>compile</SubType>
-    </None>
-    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_platform_log.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_tuning.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_twi_translation.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_twi_translation.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_types.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="tof.c">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="tof.h">
       <SubType>compile</SubType>
     </Compile>
@@ -308,7 +239,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Thirdparty" />
-    <Folder Include="Thirdparty\VL53L0x_api\" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

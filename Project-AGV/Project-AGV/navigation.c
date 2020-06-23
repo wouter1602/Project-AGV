@@ -13,60 +13,83 @@ static struct NavigationParamiters
 	float curHeading;
 }navigation;
 
-void initNavigation(void) {
-	memory[5];
-	for (i = 0; i < 5; i++){
+static inline uint8_t getCurHeading(void) {
+	return getMagnetoHeading();
+}
+
+static void initNavigation(uint8_t* memory, uint8_t size) {
+	for (uint8_t i = 0; i < size; i++){
 		memory[i] = getCurHeading;
 	}
 }
-
-static void getCurHeading(void) {
-	navigation.curHeading = getMagnetoHeading();
-}
-
 void setHeading(void) {
 	navigation.setHeading = getMagnetoHeading();
 }
 
-void calculateDeflection(void) {
-	int sum = 0;
-	for(i = 0; i < 5; i++)
+static uint8_t calculateDeflection(uint8_t* memory, uint8_t size) {
+	int32_t angle = 0;
+	for(uint8_t i = 0; i < size; i++)
     {
-        sum = sum + memory[i];
+        angle += memory[i];
     }
-	AvarageAngle = sum/5;
-	deflection = AvarageAngle - getCurHeading;
+	angle /= size;
+	return (angle -= getCurHeading());
 }
 
-void driveStraight(void){
-	while (1){
+static void driveStraight(uint8_t* memory, uint8_t size){
+	/*while (1){
 		j = j++;
 		memory[j] = getCurHeading;
 		if(j > 4){
 			j = j - 5;
 		}
 		if (deflection > 2 && deflection < 270){
-			Turn(-1);
+			turn(-1);
 			drive(0x7F);
 		}
 		else if(deflection < 358 && deflection > 270){
-			Turn(1);
+			turn(1);
 			drive(0x7F);
 		}
 		else{
 			drive(0x7F);
 		}
+	}*/
+	uint8_t driving = 0;
+	uint8_t deflection = 0;
+	while(driving == 0) {
+		for (int8_t i = (size-1); i > 0; i--) {			//Moves all the data one to the right in the array
+			memory[i] = memory[i-1];
+		}
+		memory[0] = getCurHeading();
+		deflection = calculateDeflection(memory, size);
+		
+		if (deflection > 2 && deflection < 270) {
+			turn(-CORRECTION);
+			drive(MOTORSPEED);
+		} else if (deflection < 358 && deflection > 270) {
+			turn(CORRECTION);
+			drive(MOTORSPEED);
+		} else {
+			drive(MOTORSPEED);
+		}
+		if (buttonPressed()) {
+			driving = 1;
+		}
 	}
-	drive(0)
+	drive(0);
 }
 
 void navigate(void) {
-	driveStraight();
-	Turn(-90);
-	driveStraight();
-	turn(-90)
-	driveStraight();
-	turn(-90)
-	driveStraight();
-	turn(-90)
+	uint8_t memory[ARRAY_SIZE] = {0};
+	initNavigation(memory, ARRAY_SIZE);
+	
+	driveStraight(memory, ARRAY_SIZE);
+	turn(-90);
+	driveStraight(memory, ARRAY_SIZE);
+	turn(-90);
+	driveStraight(memory, ARRAY_SIZE);
+	turn(-90);
+	driveStraight(memory, ARRAY_SIZE);
+	turn(-90);
 }

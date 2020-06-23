@@ -18,10 +18,12 @@
 #define HEADING_DEVEATION 5
 #endif
 
-void initNavigation(void);
+#define ARRAY_SIZE 5
+#define MOTORSPEED 0x7F
+#define CORRECTION 1
+
 void setHeading(void);
 void navigate(void);
-void initNavigation(void);
 
 
 #endif /* NAVIGATION_H_ */
