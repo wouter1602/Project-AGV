@@ -180,7 +180,7 @@ enum regAddr{
 */
 //Can't have static definse in .h file in C
 
-void initTof(void);
+void initToF(void);
 uint16_t getTofData(uint8_t sensor);
 
 #endif /* TOF_H_ */

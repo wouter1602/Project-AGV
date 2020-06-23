@@ -31,18 +31,18 @@ void initToF(void) {
 	VL53L0X_GetVersion(&version);
 	uint8_t major = 0;
 	uint8_t minor = 0;
-	printf("Build: %d\nMajor: %d\nMinor: %d\nRevision: %d\n", version.build, version.major, version.minor, version.revision);
+	//printf("Build: %d\nMajor: %d\nMinor: %d\nRevision: %d\n", version.build, version.major, version.minor, version.revision);
 	VL53L0X_GetProductRevision(pTof0, &major, &minor);
 	
 	VL53L0X_DeviceInfo_t InfoTof0;
 	
-	printf("\nMajor: %d\nMinor: %d\n", major, minor);
+	//printf("\nMajor: %d\nMinor: %d\n", major, minor);
 	
 	VL53L0X_DataInit(&Tof0);
 	
 	VL53L0X_GetDeviceInfo(pTof0, &InfoTof0);
 	
-	printf("Device: %d\n", InfoTof0.Name);
+	//printf("Device: %d\n", InfoTof0.Name);
 	
 	VL53L0X_StaticInit(pTof0);
 	
@@ -78,13 +78,14 @@ uint16_t getTofData(uint8_t sensor) {
 	uint16_t data = 0;
 	VL53L0X_RangingMeasurementData_t RangingMeasuementData;
 	
-	printf("measurement: %d\n", (uint16_t) RangingMeasuementData.RangeMilliMeter);
+	//printf("measurement: %d\n", (uint16_t) RangingMeasuementData.RangeMilliMeter);
 	VL53L0X_PerformSingleRangingMeasurement(pTof0, &RangingMeasuementData);
 	//printf("Timestamp: %d\nMeasure time: %d\nRange: %d\nRange Max: %d\nSignal Rate: %d\nAmbient RAte: %d\nEffective spad: &d\nZone id: %d\nRange fraction: %d\nRange status: %d\n", RangingMeasuementData.TimeStamp, RangingMeasuementData.MeasurementTimeUsec, RangingMeasuementData.RangeMilliMeter, RangingMeasuementData.RangeDMaxMilliMeter, RangingMeasuementData.SignalRateRtnMegaCps, RangingMeasuementData.AmbientRateRtnMegaCps, RangingMeasuementData.EffectiveSpadRtnCount, RangingMeasuementData.ZoneId, RangingMeasuementData.RangeFractionalPart, RangingMeasuementData.RangeStatus);
-	printf("measurement: %d\n", (uint16_t) RangingMeasuementData.RangeMilliMeter);
+	//printf("measurement: %d\n", (uint16_t) RangingMeasuementData.RangeMilliMeter);
 	_delay_ms(10);
 	//VL53L0X_GetRangingMeasurementData(pTof0, &RangingMeasuementData);
 	
 	//printf("Timestamp: %d\nMeasure time: %d\nRange: %d\nRange Max: %d\nSignal Rate: %d\nAmbient RAte: %d\nEffective spad: &d\nZone id: %d\nRange fraction: %d\nRange status: %d\n", RangingMeasuementData.TimeStamp, RangingMeasuementData.MeasurementTimeUsec, RangingMeasuementData.RangeMilliMeter, RangingMeasuementData.RangeDMaxMilliMeter, RangingMeasuementData.SignalRateRtnMegaCps, RangingMeasuementData.AmbientRateRtnMegaCps, RangingMeasuementData.EffectiveSpadRtnCount, RangingMeasuementData.ZoneId, RangingMeasuementData.RangeFractionalPart, RangingMeasuementData.RangeStatus);
+	data = RangingMeasuementData.RangeMilliMeter;
     return data;
 }
