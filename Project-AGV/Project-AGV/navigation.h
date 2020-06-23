@@ -21,6 +21,7 @@
 void initNavigation(void);
 void setHeading(void);
 void navigate(void);
+void initNavigation(void);
 
 
 #endif /* NAVIGATION_H_ */

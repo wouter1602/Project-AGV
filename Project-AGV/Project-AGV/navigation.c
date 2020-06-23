@@ -14,7 +14,10 @@ static struct NavigationParamiters
 }navigation;
 
 void initNavigation(void) {
-	
+	memory[5];
+	for (i = 0; i < 5; i++){
+		memory[i] = getCurHeading;
+	}
 }
 
 static void getCurHeading(void) {
@@ -33,17 +36,6 @@ void calculateDeflection(void) {
     }
 	AvarageAngle = sum/5;
 	deflection = AvarageAngle - getCurHeading;
-}
-
-void navigate(void) {
-	driveStraight();
-	Turn(-90);
-	driveStraight();
-	turn(-90)
-	driveStraight();
-	turn(-90)
-	driveStraight();
-	turn(-90)
 }
 
 void driveStraight(void){
@@ -68,9 +60,13 @@ void driveStraight(void){
 	drive(0)
 }
 
-void navigateSetup(void) {
-	int memory[5];
-	for (i = 0; i < 5; i++){
-		memory[i] = getCurHeading;
-	}
+void navigate(void) {
+	driveStraight();
+	Turn(-90);
+	driveStraight();
+	turn(-90)
+	driveStraight();
+	turn(-90)
+	driveStraight();
+	turn(-90)
 }
