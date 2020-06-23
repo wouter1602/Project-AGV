@@ -18,6 +18,7 @@
 #include "hall.h"
 #include "photodiode.h"
 #include "tof.h"
+#include "navigation.h"
 
 int main(void) {
 	DDRC |= (1 << DDC7);
