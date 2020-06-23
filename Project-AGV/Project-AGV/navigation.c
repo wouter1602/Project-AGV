@@ -32,30 +32,40 @@ void calculateDeflection(void) {
         sum = sum + memory[i];
     }
 	AvarageAngle = sum/5;
-	deflection = AvarageAngle - navigation.setHeading;
+	deflection = AvarageAngle - getCurHeading;
 }
 
 void navigate(void) {
+	driveStraight();
+	Turn(-90);
+	driveStraight();
+	turn(-90)
+	driveStraight();
+	turn(-90)
+	driveStraight();
+	turn(-90)
+}
+
+void driveStraight(void){
 	while (1){
 		j = j++;
-		memory[j] = getMagnetoHeading;
+		memory[j] = getCurHeading;
 		if(j > 4){
 			j = j - 5;
 		}
-		if (deflection > 2){
-			TurnL(0x7F);
-			delay(1);
+		if (deflection > 2 && deflection < 270){
+			Turn(-1);
 			drive(0x7F);
 		}
 		else if(deflection < 358 && deflection > 270){
-			TurnR(0x7F);
-			delay(1);
+			Turn(1);
 			drive(0x7F);
 		}
 		else{
 			drive(0x7F);
 		}
 	}
+	drive(0)
 }
 
 void navigateSetup(void) {
