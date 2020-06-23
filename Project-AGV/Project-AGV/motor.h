@@ -14,21 +14,22 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 #include <stdlib.h>
+#include <math.h>
 
 #include "pins.h"
 #include "magneto.h"
 
 #define NINTEY_DEGREES 90		//Needed to turn 90 degreees
 #define ROTATION_SPEED 350
-#define HEADING_DEVEATION 5
+#define HEADING_DEVEATION 0.8
 
 void initMotor(void);
 void setMotorR(int16_t speed);
 void setMotorL(int16_t speed);
 void drive(int16_t speed);
-void turnR(int16_t degrees);
-void turnL(int16_t degrees);
-void turn(int16_t degrees);
+void turnR(float degrees);
+void turnL(float degrees);
+void turn(float degrees);
 void stopMotorL(void);
 void stopMotorR(void);
 void stopAllMotors(void);

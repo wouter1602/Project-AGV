@@ -7,73 +7,54 @@
 
 #include "navigation.h"
 
+/*
 static struct NavigationParamiters
 {
 	float setHeading;
 	float curHeading;
-}navigation;
+}navigation;*/
 
-static inline uint8_t getCurHeading(void) {
-	return getMagnetoHeading();
-}
-
-static void initNavigation(uint8_t* memory, uint8_t size) {
+static void initNavigation(float* memory, uint8_t size) {
 	for (uint8_t i = 0; i < size; i++){
-		memory[i] = getCurHeading;
+		memory[i] = getMagnetoHeading();
 	}
 }
-void setHeading(void) {
-	navigation.setHeading = getMagnetoHeading();
-}
 
-static uint8_t calculateDeflection(uint8_t* memory, uint8_t size) {
-	int32_t angle = 0;
+static float calculateDeflection(float curHeading, float* memory, uint8_t size) {
+	float angle = 0;
 	for(uint8_t i = 0; i < size; i++)
     {
         angle += memory[i];
     }
 	angle /= size;
-	return (angle -= getCurHeading());
+	return (angle -= curHeading);
 }
 
-static void driveStraight(uint8_t* memory, uint8_t size){
-	/*while (1){
-		j = j++;
-		memory[j] = getCurHeading;
-		if(j > 4){
-			j = j - 5;
-		}
-		if (deflection > 2 && deflection < 270){
-			turn(-1);
-			drive(0x7F);
-		}
-		else if(deflection < 358 && deflection > 270){
-			turn(1);
-			drive(0x7F);
-		}
-		else{
-			drive(0x7F);
-		}
-	}*/
+static void driveStraight(float* memory, uint8_t size){
+	float curHeading = getMagnetoHeading();
+	initNavigation(memory, size);
 	uint8_t driving = 0;
-	uint8_t deflection = 0;
+	float deflection = 0;
 	while(driving == 0) {
 		for (int8_t i = (size-1); i > 0; i--) {			//Moves all the data one to the right in the array
 			memory[i] = memory[i-1];
 		}
-		memory[0] = getCurHeading();
-		deflection = calculateDeflection(memory, size);
+		memory[0] = getMagnetoHeading();
+		deflection = calculateDeflection(curHeading, memory, size);
 		
-		if (deflection > 2 && deflection < 270) {
+		if (deflection < -2) {
+			PORTC |= (1 << PORTC7);
 			turn(-CORRECTION);
 			drive(MOTORSPEED);
-		} else if (deflection < 358 && deflection > 270) {
+		} else if (deflection > 2) {
+			PORTC |= (1 << PORTC7);
 			turn(CORRECTION);
 			drive(MOTORSPEED);
 		} else {
+			PORTC &= (1 << PORTC7);
 			drive(MOTORSPEED);
 		}
-		if (buttonPressed()) {
+		if (limitswitchPressed()) {
 			driving = 1;
 		}
 	}
@@ -81,15 +62,37 @@ static void driveStraight(uint8_t* memory, uint8_t size){
 }
 
 void navigate(void) {
-	uint8_t memory[ARRAY_SIZE] = {0};
-	initNavigation(memory, ARRAY_SIZE);
-	
-	driveStraight(memory, ARRAY_SIZE);
+	float memory[ARRAY_SIZE] = {0};
+	drive(MOTORSPEED);
+	while(limitswitchPressed());
+	drive(-MOTORSPEED);
+	_delay_ms(300);
+	drive(0);
+	_delay_ms(1000);
+	//driveStraight(memory, ARRAY_SIZE);
 	turn(-90);
-	driveStraight(memory, ARRAY_SIZE);
+	drive(MOTORSPEED);
+	while(limitswitchPressed());
+	drive(-MOTORSPEED);
+	_delay_ms(300);
+	drive(0);
+	_delay_ms(1000);
+	//driveStraight(memory, ARRAY_SIZE);
 	turn(-90);
-	driveStraight(memory, ARRAY_SIZE);
+	drive(MOTORSPEED);
+	while(limitswitchPressed());
+	drive(-MOTORSPEED);
+	_delay_ms(30);
+	drive(0);
+	_delay_ms(1000);
+	//driveStraight(memory, ARRAY_SIZE);
 	turn(-90);
-	driveStraight(memory, ARRAY_SIZE);
+	drive(MOTORSPEED);
+	while(limitswitchPressed());
+	drive(-MOTORSPEED);
+	_delay_ms(300);
+	drive(0);
+	_delay_ms(1000);
+	//driveStraight(memory, ARRAY_SIZE);
 	turn(-90);
 }

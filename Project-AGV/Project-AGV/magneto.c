@@ -73,7 +73,7 @@ static float getMagnetoDataXAvg(uint8_t times) {
 	}
 	
 	data /= times;
-	return round(data);
+	return data;
 }
 
 /*
@@ -87,7 +87,7 @@ static float getMagnetoDataYAvg(uint8_t times) {
 	}
 	
 	data /= times;
-	return round(data);
+	return data;
 }
 
 /*
@@ -95,13 +95,13 @@ static float getMagnetoDataYAvg(uint8_t times) {
  * The amount of times measured is defined by the "MAGNETO_AVG" define.
  */
 static float getMagnetoDataZAvg(uint8_t times) {
-	int32_t data = 0;
+	float data = 0;
 	for (int i = 0; i < times; i++)	{
 		data += getMagnetoDataZ();
 	}
 	
 	data /= times;
-	return round(data);
+	return data;
 }
 
 /*

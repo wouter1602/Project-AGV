@@ -47,7 +47,7 @@ void setMotorR(int16_t speed) {
 		PORTE |= (1 << M1DIR);
 		TCCR0B |= (1 << CS00);
 		motorR = 1;
-		} else if (speed > 0) {
+	} else if (speed > 0) {
 		PORTE &= ~(1 << M1DIR);
 		TCCR0B |= (1 << CS00);
 		motorR = 1;
@@ -71,7 +71,7 @@ void setMotorL(int16_t speed) {
 		PORTB |= (1 << M2DIR);
 		TCCR0B |= (1 << CS00);
 		motorL = 1;
-		} else if (speed > 0) {
+	} else if (speed > 0) {
 		PORTB &= ~(1 << M2DIR);
 		TCCR0B |= (1 << CS00);
 		motorL = 1;
@@ -90,8 +90,9 @@ void drive(int16_t speed) {
 	setMotorR(speed);
 }
 
+/*
 //turn so many degrees right
-void turnR(int16_t degrees) {
+void turnR(float degrees) {
 	setMotorL(ROTATION_SPEED);
 	setMotorR(-ROTATION_SPEED);
 	while(!(getMagnetoHeading() > (degrees - HEADING_DEVEATION) && getMagnetoHeading() < (degrees + HEADING_DEVEATION)));
@@ -101,30 +102,54 @@ void turnR(int16_t degrees) {
 }
 
 //turn so many degrees left
-void turnL(int16_t degrees) {
+void turnL(float degrees) {
 	setMotorR(ROTATION_SPEED);
 	setMotorL(-ROTATION_SPEED);
 	while(!(getMagnetoHeading() > (degrees - HEADING_DEVEATION) && getMagnetoHeading() < (degrees + HEADING_DEVEATION)));
 	
 	setMotorL(0);
 	setMotorR(0);
+}*/
+
+void turnR(float degrees) {
+	setMotorL(ROTATION_SPEED);
+	setMotorR(-ROTATION_SPEED);
+	float curPoss = 0.0;
+	while(1) {
+		curPoss = getMagnetoHeading();
+		if (!(curPoss > (degrees - HEADING_DEVEATION) && curPoss < (degrees + HEADING_DEVEATION))) {
+			break;
+		}
+	}
 }
 
-void turn(int16_t degrees) {
-	int16_t curPos = getMagnetoHeading();
+void turnL(float degrees) {
+	setMotorL(-ROTATION_SPEED);
+	setMotorR(ROTATION_SPEED);
+	float curPoss = 0.0;
+	while(1) {
+		curPoss = getMagnetoHeading();
+		if (!(curPoss > (degrees - HEADING_DEVEATION) && curPoss < (degrees + HEADING_DEVEATION))) {
+			break;
+		}
+	}
+}
+
+void turn(float degrees) {
+	float curPos = getMagnetoHeading();
 	
-	int16_t absDegrees = curPos + degrees;
+	float absDegrees = curPos + degrees;
 	
-	absDegrees = absDegrees % 361;
-	if ((curPos - absDegrees) < 0) {
+	absDegrees = fmodf(absDegrees, 360.0);
+	if ((curPos - absDegrees) < 0.0) {
 		//turn left
 		turnL(absDegrees);
-	} else if ((curPos - absDegrees) == 0) {
-		//No need to turn
-		return;
-	} else {
+	} else if ((curPos - absDegrees) > 0.0) {
 		//turn right.
 		turnR(absDegrees);
+	} else {
+		//No need to turn
+		return;
 	}
 }
 

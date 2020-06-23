@@ -20,8 +20,11 @@
 #define ZUMO_BUTTON 6 //PD6 (D12)
 #define PHOTOLIGHT 1  //PD1	(D2)
 
+#define LIMITSWITCH 6 //PC6 (D5)
+
 void initPins(void);
 
 uint8_t buttonPressed(void);
+uint8_t limitswitchPressed(void);
 
 #endif /* PINS_H_ */

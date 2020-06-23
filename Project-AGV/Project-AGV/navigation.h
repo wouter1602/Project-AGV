@@ -11,12 +11,9 @@
 
 #include <avr./io.h>
 #include <util/delay.h>
+#include <math.h>
 
 #include "magneto.h"
-
-#ifndef HEADING_DEVEATION
-#define HEADING_DEVEATION 5
-#endif
 
 #define ARRAY_SIZE 5
 #define MOTORSPEED 0x7F

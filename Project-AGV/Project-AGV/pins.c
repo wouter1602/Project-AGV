@@ -14,9 +14,12 @@ static void initIo(void) {
 	
 	DDRD |= (1 << PHOTOLIGHT);
 	DDRD &= ~(1 << ZUMO_BUTTON); //Set zumo_button as input
+	DDRC &= ~(1 << LIMITSWITCH);
 	
 	PORTD |= (1 << PHOTOLIGHT);
 	PORTD |= (1 << ZUMO_BUTTON); //set pull up on zumo button
+	PORTC |= (1 << LIMITSWITCH); //set pull up on LIMITSWITCH
+
 }
 
 //setup all the timers
@@ -38,4 +41,8 @@ void initPins(void){
 
 inline uint8_t buttonPressed(void) {
 	return (PIND & (1 << ZUMO_BUTTON));
+}
+
+inline uint8_t limitswitchPressed(void) {
+	return (PINC & (1 << LIMITSWITCH));
 }

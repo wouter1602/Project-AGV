@@ -34,26 +34,33 @@ int main(void) {
 	initMotor();
 	initTwi();
 	initMagneto();
-	//initPhotodiode();
 #ifdef DEBUG
 	printf("Done setup\n");
 #endif
+
 	//Calibrate Zumo
 	PORTC |= (1 << PORTC7);
 	while(buttonPressed());		//wait for button pressed
-	_delay_ms(5);
+	_delay_ms(300);
 	PORTC &= ~(1 << PORTC7);
 	magnetoCallibrate(60);		//Calibrate Zumo Magneto sensor
 	
 	
 	//start Zumo	
 	PORTC|= (1 << PORTC7);
-	while(buttonPressed());		//wait for button pressed
-	_delay_ms(5);
+	while(buttonPressed()){		//wait for button pressed
+		if (limitswitchPressed()) {
+			PORTC &= ~(1 << PORTC7);
+		} else {
+			PORTC |= (1 << PORTC7);
+		}
+	}
+	_delay_ms(300);
 	PORTC &= ~(1 << PORTC7);
 	
     while (1) {
-		printf("Current heading:\t%d\n", (int32_t) round(getMagnetoHeading()));		//Prints out current heading for debugging
-		_delay_ms(1000);
+		navigate();
+		while(buttonPressed());
+		_delay_ms(300);
     }
 }
