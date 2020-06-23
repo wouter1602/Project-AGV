@@ -75,47 +75,47 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
       <AvrGcc>
-  <avrgcc.common.Device>-mmcu=atmega32u4 -B "%24(PackRepoDir)\Atmel\ATmega_DFP\1.4.351\gcc\dev\atmega32u4"</avrgcc.common.Device>
-  <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
-  <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
-  <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
-  <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
-  <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
-  <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
-  <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
-  <avrgcc.compiler.symbols.DefSymbols>
-    <ListValues>
-      <Value>F_CPU=16000000</Value>
-      <Value>NDEBUG</Value>
-    </ListValues>
-  </avrgcc.compiler.symbols.DefSymbols>
-  <avrgcc.compiler.directories.IncludePaths>
-    <ListValues>
-      <Value>%24(PackRepoDir)\Atmel\ATmega_DFP\1.4.351\include</Value>
-      <Value>../Thirdparty/Leonardo_AVRC/leonardoe_usb_driver</Value>
-    </ListValues>
-  </avrgcc.compiler.directories.IncludePaths>
-  <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
-  <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
-  <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
-  <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
-  <avrgcc.compiler.miscellaneous.OtherFlags>-std=gnu11</avrgcc.compiler.miscellaneous.OtherFlags>
-  <avrgcc.linker.libraries.Libraries>
-    <ListValues>
-      <Value>libm</Value>
-    </ListValues>
-  </avrgcc.linker.libraries.Libraries>
-  <avrgcc.linker.libraries.LibrarySearchPaths>
-    <ListValues>
-      <Value>A:\Users\Wouter\Documents\!Documenten\!School\HH\2019-2020\Semester 2\Project AGV\Project-AGV\Project-AGV\Project-AGV\Thirdparty\Leonardo_AVRC\leonardoe_usb_driver</Value>
-    </ListValues>
-  </avrgcc.linker.libraries.LibrarySearchPaths>
-  <avrgcc.assembler.general.IncludePaths>
-    <ListValues>
-      <Value>%24(PackRepoDir)\Atmel\ATmega_DFP\1.4.351\include</Value>
-    </ListValues>
-  </avrgcc.assembler.general.IncludePaths>
-</AvrGcc>
+        <avrgcc.common.Device>-mmcu=atmega32u4 -B "%24(PackRepoDir)\Atmel\ATmega_DFP\1.4.351\gcc\dev\atmega32u4"</avrgcc.common.Device>
+        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+        <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
+        <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+        <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+        <avrgcc.compiler.symbols.DefSymbols>
+          <ListValues>
+            <Value>F_CPU=16000000</Value>
+            <Value>NDEBUG</Value>
+          </ListValues>
+        </avrgcc.compiler.symbols.DefSymbols>
+        <avrgcc.compiler.directories.IncludePaths>
+          <ListValues>
+            <Value>%24(PackRepoDir)\Atmel\ATmega_DFP\1.4.351\include</Value>
+            <Value>../Thirdparty/Leonardo_AVRC/leonardoe_usb_driver</Value>
+          </ListValues>
+        </avrgcc.compiler.directories.IncludePaths>
+        <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
+        <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+        <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+        <avrgcc.compiler.miscellaneous.OtherFlags>-std=gnu11</avrgcc.compiler.miscellaneous.OtherFlags>
+        <avrgcc.linker.libraries.Libraries>
+          <ListValues>
+            <Value>libm</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.Libraries>
+        <avrgcc.linker.libraries.LibrarySearchPaths>
+          <ListValues>
+            <Value>A:\Users\Wouter\Documents\!Documenten\!School\HH\2019-2020\Semester 2\Project AGV\Project-AGV\Project-AGV\Project-AGV\Thirdparty\Leonardo_AVRC\leonardoe_usb_driver</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.LibrarySearchPaths>
+        <avrgcc.assembler.general.IncludePaths>
+          <ListValues>
+            <Value>%24(PackRepoDir)\Atmel\ATmega_DFP\1.4.351\include</Value>
+          </ListValues>
+        </avrgcc.assembler.general.IncludePaths>
+      </AvrGcc>
     </ToolchainSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -205,6 +205,75 @@
     <Compile Include="pins.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_api.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_api.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_api_calibration.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_api_calibration.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_api_core.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_api_core.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_api_ranging.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_api_ranging.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_api_strings.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_api_strings.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_def.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_device.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <None Include="Thirdparty\VL53L0x_api\vl53l0x_i2c_platform.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="Thirdparty\VL53L0x_api\vl53l0x_i2c_win_serial_comms.c">
+      <SubType>compile</SubType>
+    </None>
+    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_interrupt_threshold_settings.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_platform.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_platform.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <None Include="Thirdparty\VL53L0x_api\vl53l0x_platform_log.c">
+      <SubType>compile</SubType>
+    </None>
+    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_platform_log.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_tuning.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_twi_translation.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_twi_translation.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Thirdparty\VL53L0x_api\vl53l0x_types.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="tof.c">
       <SubType>compile</SubType>
     </Compile>
@@ -215,45 +284,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="twi.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="VL53L0x_api\vl53l0x_api.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="VL53L0x_api\vl53l0x_api_calibration.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="VL53L0x_api\vl53l0x_api_core.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="VL53L0x_api\vl53l0x_api_ranging.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="VL53L0x_api\vl53l0x_api_strings.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="VL53L0x_api\vl53l0x_def.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="VL53L0x_api\vl53l0x_device.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <None Include="VL53L0x_api\vl53l0x_i2c_platform.h">
-      <SubType>compile</SubType>
-    </None>
-    <Compile Include="VL53L0x_api\vl53l0x_interrupt_threshold_settings.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="VL53L0x_api\vl53l0x_platform.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="VL53L0x_api\vl53l0x_platform_log.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="VL53L0x_api\vl53l0x_tuning.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="VL53L0x_api\vl53l0x_types.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="watchdog.c">
@@ -277,24 +307,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="VL53L0x_api" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="VL53L0x_api\vl53l0x_api.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="VL53L0x_api\vl53l0x_api_calibration.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="VL53L0x_api\vl53l0x_api_core.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="VL53L0x_api\vl53l0x_api_ranging.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="VL53L0x_api\vl53l0x_api_strings.c">
-      <SubType>compile</SubType>
-    </Compile>
+    <Folder Include="Thirdparty" />
+    <Folder Include="Thirdparty\VL53L0x_api\" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>
