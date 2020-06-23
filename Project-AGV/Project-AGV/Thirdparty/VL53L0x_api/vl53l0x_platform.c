@@ -262,15 +262,18 @@ VL53L0X_Error  VL53L0X_RdDWord(VL53L0X_DEV Dev, uint8_t index, uint32_t *data){
 #define VL53L0X_POLLINGDELAY_LOOPNB  250
 VL53L0X_Error VL53L0X_PollingDelay(VL53L0X_DEV Dev){
     VL53L0X_Error status = VL53L0X_ERROR_NONE;
-    LOG_FUNCTION_START("");
+    //LOG_FUNCTION_START("");
 
-    const uint32_t cTimeout_ms = 1;
-    uint8_t hEvent = CreateEvent(0, TRUE, FALSE, 0);
-    if(hEvent != NULL)
-    {
-        WaitForSingleObject(hEvent,cTimeout_ms);
-    }
+    //const uint32_t cTimeout_ms = 1;
+    //uint8_t hEvent = CreateEvent(0, TRUE, FALSE, 0);
+    //if(hEvent != NULL)
+    //{
+    //    WaitForSingleObject(hEvent,cTimeout_ms);
+    //}
 
-    LOG_FUNCTION_END(status);
+    //LOG_FUNCTION_END(status);
+	
+	_delay_ms(5);		//Datasheet says it should wait for 5 ms
+	
     return status;
 }

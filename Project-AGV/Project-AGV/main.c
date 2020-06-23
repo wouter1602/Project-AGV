@@ -33,6 +33,7 @@ int main(void) {
 	initMotor();
 	initTwi();
 	initMagneto();
+	initToF();
 	//initPhotodiode();
 #ifdef DEBUG
 	printf("Done setup\n");
