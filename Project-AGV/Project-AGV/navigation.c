@@ -8,18 +8,19 @@
 #include "navigation.h"
 
 /*
-static struct NavigationParamiters
-{
-	float setHeading;
-	float curHeading;
-}navigation;*/
-
+ * Fill the memory array full of the same numbers.
+ * this is done to have a strating point to calculate the deviation
+ */
 static void initNavigation(float* memory, uint8_t size) {
 	for (uint8_t i = 0; i < size; i++){
 		memory[i] = getMagnetoHeading();
 	}
 }
 
+/*
+ * Uses the last [size] measured data to calculate deviation.
+ * Needs current deviation and memory array with the last measured data.
+ */
 static float calculateDeflection(float curHeading, float* memory, uint8_t size) {
 	float angle = 0;
 	for(uint8_t i = 0; i < size; i++)
@@ -30,6 +31,10 @@ static float calculateDeflection(float curHeading, float* memory, uint8_t size) 
 	return (angle -= curHeading);
 }
 
+/*
+ * Function that set's a current heading and measure deviation.
+ * When deviation is measured it automatically compensates.
+ */
 static void driveStraight(float* memory, uint8_t size){
 	float curHeading = getMagnetoHeading();
 	initNavigation(memory, size);
@@ -61,6 +66,9 @@ static void driveStraight(float* memory, uint8_t size){
 	drive(0);
 }
 
+/*
+ * Function navigates through the given course.
+ */
 void navigate(void) {
 	float memory[ARRAY_SIZE] = {0};
 	drive(MOTORSPEED);
@@ -95,4 +103,4 @@ void navigate(void) {
 	_delay_ms(1000);
 	//driveStraight(memory, ARRAY_SIZE);
 	turn(-90);
-}
+} //Drive Straight is removed at the moment because the magneto sensor isn't accruate.

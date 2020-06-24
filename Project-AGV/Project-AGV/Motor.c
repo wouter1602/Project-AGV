@@ -27,7 +27,9 @@ ISR(TIMER0_COMPB_vect) {
 	}
 }
 
-//Include everything needed to start the motor
+/*
+ * Enables the Motor diriver pwm timer.
+ */
 void initMotor(void) {
 	//Setup Timer 0
 	//in Normal mode
@@ -38,7 +40,11 @@ void initMotor(void) {
 	TIMSK0 |= (1 << OCIE0A) | (1 << OCIE0B) | (1 << TOIE0); //Enalbe OVF, COMPA and COMPB fect
 }
 
-//set motor speed R
+/*
+ * Enables right motor.
+ * Positive number is forward, negative is backwards.
+ * value is the overflow of the pwm signal.
+ */
 void setMotorR(int16_t speed) {
 	TCCR0B &= ~(1 << CS00);
 	PORTB &= ~(1 << M1PWM);
@@ -62,7 +68,11 @@ void setMotorR(int16_t speed) {
 	
 }
 
-//set motor speed L
+/*
+ * Enables left motor.
+ * Positive number is forward, negative is backwards.
+ * value is the overflow of the pwm signal.
+ */
 void setMotorL(int16_t speed) {
 	TCCR0B &= ~(1 << CS00); //Disable signal
 	PORTB &= ~(1 << M2PWM); //Turn of signal
@@ -85,32 +95,17 @@ void setMotorL(int16_t speed) {
 	}
 }
 
+/*
+ * Set's both motor's at the same speed.
+ */
 void drive(int16_t speed) {
 	setMotorL(speed);
 	setMotorR(speed);
 }
 
 /*
-//turn so many degrees right
-void turnR(float degrees) {
-	setMotorL(ROTATION_SPEED);
-	setMotorR(-ROTATION_SPEED);
-	while(!(getMagnetoHeading() > (degrees - HEADING_DEVEATION) && getMagnetoHeading() < (degrees + HEADING_DEVEATION)));
-	
-	setMotorL(0);
-	setMotorR(0);
-}
-
-//turn so many degrees left
-void turnL(float degrees) {
-	setMotorR(ROTATION_SPEED);
-	setMotorL(-ROTATION_SPEED);
-	while(!(getMagnetoHeading() > (degrees - HEADING_DEVEATION) && getMagnetoHeading() < (degrees + HEADING_DEVEATION)));
-	
-	setMotorL(0);
-	setMotorR(0);
-}*/
-
+ * turn so many degrees right
+ */
 void turnR(float degrees) {
 	setMotorL(ROTATION_SPEED);
 	setMotorR(-ROTATION_SPEED);
@@ -123,6 +118,9 @@ void turnR(float degrees) {
 	}
 }
 
+/*
+ * turn so many degrees left
+ */
 void turnL(float degrees) {
 	setMotorL(-ROTATION_SPEED);
 	setMotorR(ROTATION_SPEED);
@@ -135,6 +133,11 @@ void turnL(float degrees) {
 	}
 }
 
+/*
+ * Turn an amound of degrees left or right.
+ * Positive numbers is right negative numbers is left.
+ * calculates the absolute location it should rotate to.
+ */
 void turn(float degrees) {
 	float curPos = getMagnetoHeading();
 	
@@ -153,14 +156,23 @@ void turn(float degrees) {
 	}
 }
 
+/*
+ * Stop right motor
+ */
 void stopMotorR(void) {
 	setMotorL(0);
 }
 
+/*
+ * Stop left motor
+ */
 void stopMotorL(void) {
 	setMotorR(0);
 }
 
+/*
+ * Stop both motors
+ */
 void stopAllMotors(void) {
 	stopMotorL();
 	stopMotorR();

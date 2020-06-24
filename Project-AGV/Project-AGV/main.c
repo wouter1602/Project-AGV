@@ -46,7 +46,7 @@ int main(void) {
 	magnetoCallibrate(60);		//Calibrate Zumo Magneto sensor
 	
 	
-	//start Zumo	
+	//start Zumo + Limit switch test
 	PORTC|= (1 << PORTC7);
 	while(buttonPressed()){		//wait for button pressed
 		if (limitswitchPressed()) {
