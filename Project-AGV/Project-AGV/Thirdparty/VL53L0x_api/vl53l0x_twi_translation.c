@@ -7,6 +7,9 @@
 
 #include "vl53l0x_twi_translation.h"
 
+/*
+ * Translates ST api I2C write to be used with the TWI functions.
+ */
 VL53L0X_Error VL53L0X_write_multi(uint8_t address, uint8_t index, uint8_t* pdata, uint32_t count){ 
 	VL53L0X_Error status = VL53L0X_ERROR_NONE;
 	uint8_t data[MAX_BUFFER_LENGTH] = {0};
@@ -27,6 +30,9 @@ VL53L0X_Error VL53L0X_write_multi(uint8_t address, uint8_t index, uint8_t* pdata
 	
 }
 
+/*
+ * Translates ST api I2C read to be used with the TWI functions.
+ */
 VL53L0X_Error VL53L0X_read_multi(uint8_t address, uint8_t index, uint8_t* pdata, uint32_t count) {
 	VL53L0X_Error status = VL53L0X_ERROR_NONE;
 	uint8_t data[MAX_BUFFER_LENGTH] = {0};
@@ -46,6 +52,9 @@ VL53L0X_Error VL53L0X_read_multi(uint8_t address, uint8_t index, uint8_t* pdata,
 	}
 }
 
+/*
+ * Translates ST api I2C write to be used with the TWI functions.
+ */
 VL53L0X_Error VL53L0X_write_byte(uint8_t address, uint8_t index, uint8_t data) {
 	VL53L0X_Error status = VL53L0X_ERROR_NONE;
 	uint8_t array[3] = {address, index, data};
@@ -60,6 +69,9 @@ VL53L0X_Error VL53L0X_write_byte(uint8_t address, uint8_t index, uint8_t data) {
 	}
 }
 
+/*
+ * Translates ST api I2C write to be used with the TWI functions.
+ */
 VL53L0X_Error VL53L0X_write_word(uint8_t address, uint8_t index, uint16_t data) {
 	VL53L0X_Error status = VL53L0X_ERROR_NONE;
 	uint8_t array[4] = {address, index, (data >> 8), (data & 0xFF)};
@@ -74,6 +86,9 @@ VL53L0X_Error VL53L0X_write_word(uint8_t address, uint8_t index, uint16_t data) 
 	}
 }
 
+/*
+ * Translates ST api I2C write to be used with the TWI functions.
+ */
 VL53L0X_Error VL53L0X_write_dword(uint8_t address, uint8_t index, uint32_t data) {
 	VL53L0X_Error status = VL53L0X_ERROR_NONE;
 	uint8_t array[6] = {address, index, ((data >> 42) & 0xFF), ((data >> 16) & 0xFF), ((data >> 8) & 0xFF), (data & 0xFF)};
@@ -87,6 +102,9 @@ VL53L0X_Error VL53L0X_write_dword(uint8_t address, uint8_t index, uint32_t data)
 	}
 }
 
+/*
+ * Translates ST api I2C read to be used with the TWI functions.
+ */
 VL53L0X_Error VL53L0X_read_byte(uint8_t address, uint8_t index, uint8_t* data) {
 	VL53L0X_Error status = VL53L0X_ERROR_NONE;
 	uint8_t array[3] = {address, index, (address | 1)};
@@ -102,6 +120,9 @@ VL53L0X_Error VL53L0X_read_byte(uint8_t address, uint8_t index, uint8_t* data) {
 	}
 }
 
+/*
+ * Translates ST api I2C read to be used with the TWI functions.
+ */
 VL53L0X_Error VL53L0X_read_word(uint8_t address, uint8_t index, uint16_t* data) {
 	VL53L0X_Error status = VL53L0X_ERROR_NONE;
 	uint8_t array[3] = {address, index, (address | 1)};
@@ -116,6 +137,9 @@ VL53L0X_Error VL53L0X_read_word(uint8_t address, uint8_t index, uint16_t* data) 
 	}
 }
 
+/*
+ * Translates ST api I2C read to be used with the TWI functions.
+ */
 VL53L0X_Error VL53L0X_read_uint32_t(uint8_t address, uint8_t index, uint32_t* data) {
 	VL53L0X_Error status = VL53L0X_ERROR_NONE;
 	uint8_t array[5] = {address, index, (address | 1)};
